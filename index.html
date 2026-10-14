@@ -1,1255 +1,1359 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AMORE — Exclusive Perfume | عطور حصرية فاخرة</title>
-  
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            teal: {
-              DEFAULT: '#00464D',
-              dark: '#002B30',
-              deep: '#002024',
-              surface: '#00383D',
-              accent: '#005F68'
-            },
-            gold: {
-              DEFAULT: '#D4AF37',
-              light: '#E5C158',
-              hover: '#C29F2E',
-              subtle: 'rgba(212, 175, 55, 0.15)'
-            }
+            charcoal: '#111111',
+            ivory:    '#F8F5EF',
+            gold:     '#C6A66B',
+            'gold-light': '#D4BC8A',
+            'gold-dark':  '#A8864A',
+            cream:    '#F7F5F0',
+            'warm-gray': '#89847C',
+            border:   '#D8CBB5',
+            richblack:'#1C1C1C'
           },
           fontFamily: {
-            serif: ['Playfair Display', 'Amiri', 'Georgia', 'serif'],
-            sans: ['Plus Jakarta Sans', 'Cairo', 'sans-serif']
+            serif: ['"Playfair Display"','Amiri','Georgia','serif'],
+            sans:  ['"Plus Jakarta Sans"','Cairo','sans-serif']
           }
         }
       }
     }
   </script>
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #002024; }
-    ::-webkit-scrollbar-thumb { background: #00464D; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    .glass-effect {
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    body { background: #111111; color: #F7F5F0; font-family: "Plus Jakarta Sans", Cairo, sans-serif; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #111111; }
+    ::-webkit-scrollbar-thumb { background: #C6A66B; border-radius: 4px; }
+
+    /* ── Gold divider line ── */
+    .gold-line { width: 48px; height: 1px; background: #C6A66B; margin: 0 auto; }
+    .gold-line-left { width: 48px; height: 1px; background: #C6A66B; }
+
+    /* ── Animations ── */
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+    @keyframes shimmer  { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
+    @keyframes spin     { to{transform:rotate(360deg)} }
+    .anim-up   { animation: fadeUp  0.6s ease forwards; }
+    .anim-in   { animation: fadeIn  0.4s ease forwards; }
+    .spinner   { animation: spin    0.8s linear infinite; }
+
+    /* ── Staggered delays ── */
+    .delay-1 { animation-delay:.1s; opacity:0; }
+    .delay-2 { animation-delay:.2s; opacity:0; }
+    .delay-3 { animation-delay:.3s; opacity:0; }
+    .delay-4 { animation-delay:.4s; opacity:0; }
+
+    /* ── Skeleton loader ── */
+    .skeleton {
+      background: linear-gradient(90deg,#1e1e1e 25%,#2a2a2a 50%,#1e1e1e 75%);
+      background-size: 400px 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 6px;
     }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+
+    /* ── Glass blur ── */
+    .glass { backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+
+    /* ── Nav gold underline hover ── */
+    .nav-link { position:relative; }
+    .nav-link::after {
+      content:''; position:absolute; bottom:-2px; left:0; width:0; height:1px;
+      background:#C6A66B; transition:width .3s ease;
     }
-    .fade-in-up { animation: fadeInUp 0.5s ease forwards; }
+    .nav-link:hover::after { width:100%; }
+
+    /* ── Product card ── */
+    .product-card { transition: transform .3s ease, box-shadow .3s ease; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+    .product-card .card-img img { transition: transform .5s ease; }
+    .product-card:hover .card-img img { transform: scale(1.06); }
+
+    /* ── Category card ── */
+    .cat-card { transition: all .3s ease; }
+    .cat-card:hover { transform: translateY(-3px); }
+
+    /* ── Button base ── */
+    .btn-gold {
+      background:#C6A66B; color:#111111; font-weight:700; letter-spacing:.04em;
+      transition: background .25s, transform .2s;
+    }
+    .btn-gold:hover { background:#D4BC8A; transform:translateY(-1px); }
+    .btn-outline-gold {
+      border:1px solid #C6A66B; color:#C6A66B; font-weight:600;
+      transition: background .25s, color .25s;
+    }
+    .btn-outline-gold:hover { background:#C6A66B; color:#111111; }
+
+    /* ── Ivory section ── */
+    .ivory-section { background:#F8F5EF; color:#1C1C1C; }
+    .ivory-section .text-warm { color:#89847C; }
+
+    /* ── Mobile menu ── */
+    #mobile-menu { transition: max-height .35s ease, opacity .3s ease; max-height:0; opacity:0; overflow:hidden; }
+    #mobile-menu.open { max-height:500px; opacity:1; }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion:reduce) {
+      *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+
+    /* ── View sections ── */
+    .view-section { min-height: 60vh; }
   </style>
 </head>
-<body class="min-h-screen bg-[#FAF8F5] text-[#002B30] dark:bg-[#002B30] dark:text-[#F3F4F6] transition-colors duration-300 font-sans flex flex-col justify-between selection:bg-[#D4AF37] selection:text-[#002B30]">
+<body>
 
-  <!-- Notification Toast -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-[#00464D] text-[#D4AF37] border border-[#D4AF37]/40 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-none">
-    <i data-lucide="sparkles" class="w-5 h-5 text-[#D4AF37]"></i>
-    <span id="toast-message" class="text-xs font-bold"></span>
+<!-- ═══════════════════════════════════════════════════════ TOAST -->
+<div id="toast" class="fixed bottom-6 right-6 z-[999] transform translate-y-20 opacity-0 transition-all duration-300 bg-[#1C1C1C] text-[#C6A66B] border border-[#C6A66B]/40 px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 pointer-events-none">
+  <i data-lucide="check-circle" class="w-4 h-4 text-[#C6A66B] flex-shrink-0"></i>
+  <span id="toast-message" class="text-xs font-semibold"></span>
+</div>
+
+<!-- ═══════════════════════════════════════════════ ANNOUNCEMENT BAR -->
+<div class="bg-[#C6A66B] text-[#111111] text-[11px] py-2.5 px-4 text-center font-semibold tracking-widest uppercase">
+  <span id="announcement-text"></span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ NAVBAR -->
+<header id="navbar" class="sticky top-0 z-50 glass bg-[#111111]/95 border-b border-[#D8CBB5]/15">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8 h-20 flex items-center justify-between gap-6">
+
+    <!-- Logo (left on desktop) -->
+    <div onclick="switchView('home')" class="flex-shrink-0 cursor-pointer group">
+      <img src="assets/logo.svg" alt="AMORE" class="h-12 w-12 object-contain transition-opacity duration-300 group-hover:opacity-80" />
+    </div>
+
+    <!-- Desktop nav links (center) -->
+    <nav class="hidden lg:flex items-center gap-8 text-[13px] font-medium tracking-wide text-[#F7F5F0]">
+      <button onclick="switchView('home')" id="nav-home" class="nav-link hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="switchView('shop')" id="nav-shop" class="nav-link hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="filterAndGoShop('men')" id="nav-men" class="nav-link hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="filterAndGoShop('women')" id="nav-women" class="nav-link hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="filterAndGoShop('unisex')" id="nav-unisex" class="nav-link hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="filterAndGoShop('offers')" id="nav-offers" class="nav-link hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="scrollToContact()" id="nav-contact" class="nav-link hover:text-[#C6A66B] transition-colors"></button>
+    </nav>
+
+    <!-- Right controls -->
+    <div class="flex items-center gap-3">
+      <!-- Search toggle -->
+      <button onclick="toggleSearch()" class="p-2 text-[#89847C] hover:text-[#C6A66B] transition-colors" aria-label="Search">
+        <i data-lucide="search" class="w-5 h-5"></i>
+      </button>
+      <!-- Language -->
+      <button onclick="toggleLanguage()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#D8CBB5]/30 text-[#89847C] hover:text-[#C6A66B] hover:border-[#C6A66B]/50 text-[11px] font-bold transition-all">
+        <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+        <span id="lang-btn-text">EN</span>
+      </button>
+      <!-- WhatsApp -->
+      <a href="https://wa.me/201149770420" target="_blank" class="p-2 text-[#25D366] hover:opacity-80 transition-opacity" aria-label="WhatsApp">
+        <i data-lucide="message-circle" class="w-5 h-5"></i>
+      </a>
+      <!-- Cart -->
+      <button onclick="toggleCartDrawer(true)" class="relative p-2 text-[#F7F5F0] hover:text-[#C6A66B] transition-colors" aria-label="Cart">
+        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+        <span id="cart-badge" class="absolute -top-1 -right-1 bg-[#C6A66B] text-[#111111] text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center hidden">0</span>
+      </button>
+      <!-- Hamburger -->
+      <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-[#F7F5F0] hover:text-[#C6A66B] transition-colors" aria-label="Menu">
+        <i id="hamburger-icon" data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
   </div>
 
-  <!-- Announcement Header -->
-  <div class="bg-[#002024] text-[#E5C158] text-xs py-2 px-4 text-center font-semibold tracking-wide border-b border-[#D4AF37]/20 flex items-center justify-center gap-2">
-    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-    <span id="announcement-text"></span>
+  <!-- Search bar (collapsible) -->
+  <div id="search-bar" class="hidden border-t border-[#D8CBB5]/10 bg-[#111111]">
+    <div class="max-w-2xl mx-auto px-5 py-3 flex items-center gap-3">
+      <i data-lucide="search" class="w-4 h-4 text-[#89847C] flex-shrink-0"></i>
+      <input id="header-search-input" type="text" oninput="handleHeaderSearch(this.value)"
+        class="flex-1 bg-transparent text-sm text-[#F7F5F0] placeholder-[#89847C] outline-none"
+        placeholder="Search perfumes, brands..." />
+      <button onclick="toggleSearch()" class="text-[#89847C] hover:text-[#F7F5F0]"><i data-lucide="x" class="w-4 h-4"></i></button>
+    </div>
   </div>
 
-  <!-- Navigation Bar -->
-  <header class="sticky top-0 z-40 glass-effect bg-[#002B30]/90 dark:bg-[#002024]/90 border-b border-[#D4AF37]/20 text-[#FAF8F5]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse text-sm font-semibold tracking-wide">
-        <button onclick="switchView('home')" id="nav-home" class="hover:text-[#D4AF37] transition-colors py-1"></button>
-        <button onclick="switchView('shop')" id="nav-shop" class="hover:text-[#D4AF37] transition-colors py-1"></button>
-        <button onclick="scrollToStory()" id="nav-about" class="hover:text-[#D4AF37] transition-colors py-1"></button>
-      </nav>
-
-      <!-- AMORE Logo (New Brand Logo) -->
-      <div onclick="switchView('home')" class="flex flex-col items-center cursor-pointer group py-1 select-none">
-        <!-- SVG Logo matching the provided image -->
-        <svg width="48" height="48" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-transform group-hover:scale-105">
-          <!-- Bottle cap -->
-          <rect x="52" y="2" width="16" height="8" rx="2" fill="#D4AF37"/>
-          <!-- Bottle body outer frame -->
-          <rect x="28" y="18" width="64" height="72" rx="6" fill="none" stroke="#D4AF37" stroke-width="4"/>
-          <!-- Bottle inner cross/diamond pattern -->
-          <line x1="28" y1="18" x2="92" y2="90" stroke="#D4AF37" stroke-width="3.5"/>
-          <line x1="92" y1="18" x2="28" y2="90" stroke="#D4AF37" stroke-width="3.5"/>
-          <!-- Neck of bottle -->
-          <rect x="48" y="10" width="24" height="10" rx="2" fill="none" stroke="#D4AF37" stroke-width="3"/>
-          <!-- Clipping frame rectangle to contain cross lines -->
-          <rect x="28" y="18" width="64" height="72" rx="6" fill="none" stroke="#D4AF37" stroke-width="4"/>
-          <!-- Bottom C curve -->
-          <path d="M 44 88 Q 60 100 76 88" fill="none" stroke="#D4AF37" stroke-width="3.5" stroke-linecap="round"/>
-        </svg>
-        <span class="font-serif text-xl sm:text-2xl font-bold tracking-[0.25em] text-[#D4AF37] mt-0.5" style="font-family: 'Playfair Display', serif;">
-          AMORE
-        </span>
-        <span id="brand-tagline" class="text-[9px] tracking-[0.3em] uppercase text-gray-300 font-light">
-          EXCLUSIVE PERFUME
-        </span>
-      </div>
-
-      <!-- Controls: Language, Theme, Cart -->
-      <div class="flex items-center space-x-3 sm:space-x-4 rtl:space-x-reverse">
-        <button onclick="toggleLanguage()" class="p-2 rounded-xl bg-[#00464D]/50 hover:bg-[#00464D] border border-[#D4AF37]/30 text-[#D4AF37] text-xs font-bold flex items-center gap-1.5 transition-all">
-          <i data-lucide="globe" class="w-4 h-4"></i>
-          <span id="lang-btn-text">EN</span>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="lg:hidden bg-[#161616] border-t border-[#D8CBB5]/10">
+    <div class="px-5 py-4 space-y-1 text-sm font-medium text-[#F7F5F0]">
+      <button onclick="switchView('home');toggleMobileMenu()" id="mob-home" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="switchView('shop');toggleMobileMenu()" id="mob-shop" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="filterAndGoShop('men');toggleMobileMenu()" id="mob-men" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="filterAndGoShop('women');toggleMobileMenu()" id="mob-women" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="filterAndGoShop('unisex');toggleMobileMenu()" id="mob-unisex" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="filterAndGoShop('offers');toggleMobileMenu()" id="mob-offers" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
+      <button onclick="scrollToContact();toggleMobileMenu()" id="mob-contact" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
+      <div class="pt-2 flex items-center gap-3 px-3">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#D8CBB5]/30 text-[#89847C] text-xs font-bold">
+          <i data-lucide="globe" class="w-3.5 h-3.5"></i><span id="mob-lang">EN</span>
         </button>
-        <button onclick="toggleTheme()" class="p-2 rounded-xl bg-[#00464D]/50 hover:bg-[#00464D] border border-[#D4AF37]/30 text-[#D4AF37] transition-all">
-          <i id="theme-icon" data-lucide="sun" class="w-4 h-4"></i>
-        </button>
-        <button onclick="toggleCartDrawer(true)" class="relative p-2.5 rounded-xl bg-[#D4AF37] text-[#002B30] hover:bg-[#C29F2E] transition-all shadow-lg flex items-center justify-center">
-          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-          <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-[#002B30] hidden">0</span>
-        </button>
+        <a href="https://wa.me/201149770420" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25D366]/10 text-[#25D366] text-xs font-bold border border-[#25D366]/30">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> WhatsApp
+        </a>
       </div>
     </div>
+  </div>
+</header>
 
-    <!-- Mobile Navigation Bar -->
-    <div class="md:hidden flex items-center justify-around bg-[#002024] border-t border-[#D4AF37]/20 py-2.5 text-xs text-gray-300">
-      <button onclick="switchView('home')" class="flex flex-col items-center gap-1 hover:text-[#D4AF37]">
-        <i data-lucide="home" class="w-4 h-4"></i>
-        <span id="mob-home"></span>
-      </button>
-      <button onclick="switchView('shop')" class="flex flex-col items-center gap-1 hover:text-[#D4AF37]">
-        <i data-lucide="layers" class="w-4 h-4"></i>
-        <span id="mob-shop"></span>
-      </button>
-      <button onclick="scrollToStory()" class="flex flex-col items-center gap-1 hover:text-[#D4AF37]">
-        <i data-lucide="star" class="w-4 h-4"></i>
-        <span id="mob-about"></span>
-      </button>
-    </div>
-  </header>
+<!-- ═══════════════════════════════════════════════ MAIN CONTAINER -->
+<main id="app-container">
 
-  <!-- Main View Container -->
-  <main id="app-container" class="flex-grow">
-    
-    <!-- 1. HOME VIEW -->
-    <div id="view-home" class="view-section space-y-16 pb-20">
-      
-      <!-- Hero Section -->
-      <section class="relative min-h-[82vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#002B30] via-[#00383D] to-[#002024] text-white px-4">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]"></div>
-        <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8 py-16 fade-in-up">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-xs uppercase tracking-widest font-semibold">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            <span>AMORE Haute Parfumerie</span>
-          </div>
-          <h1 id="hero-title" class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#FAF8F5] leading-tight"></h1>
-          <p id="hero-subtitle" class="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-light"></p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <button onclick="switchView('shop')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#D4AF37] text-[#002B30] font-bold hover:bg-[#E5C158] transition-all shadow-xl flex items-center justify-center gap-2">
-              <span id="hero-cta"></span>
-              <i data-lucide="arrow-left" class="w-5 h-5 rtl:inline hidden"></i>
-              <i data-lucide="arrow-right" class="w-5 h-5 ltr:inline hidden"></i>
-            </button>
-            <button onclick="document.getElementById('bestsellers-section').scrollIntoView({behavior:'smooth'})" id="hero-bestsellers-btn" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-transparent border border-[#D4AF37]/50 text-[#D4AF37] font-semibold hover:bg-[#D4AF37]/10 transition-all"></button>
-          </div>
-        </div>
-      </section>
+<!-- ════════════════════════════════════════════════ HOME VIEW -->
+<div id="view-home" class="view-section">
 
-      <!-- Fragrance Categories Grid -->
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center space-y-3 mb-10">
-          <h2 id="cat-title" class="font-serif text-3xl font-bold text-[#D4AF37]"></h2>
-          <p id="cat-sub" class="text-xs sm:text-sm text-gray-400 max-w-md mx-auto"></p>
-        </div>
-        <div id="home-categories-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"></div>
-      </section>
+  <!-- ── HERO ── -->
+  <section class="relative min-h-[88vh] flex items-center justify-center overflow-hidden bg-[#111111]">
+    <!-- Background image overlay -->
+    <div class="absolute inset-0 bg-cover bg-center opacity-25"
+      style="background-image:url('https://images.unsplash.com/photo-1541643600914-78b084683702?auto=format&fit=crop&w=1600&q=80')"></div>
+    <!-- Gradient vignette -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[#111111]/60 via-transparent to-[#111111]"></div>
+    <!-- Subtle gold grain texture -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22><rect width=%224%22 height=%224%22 fill=%22%23C6A66B%22 opacity=%220.4%22/></svg>')"></div>
 
-      <!-- Featured Masterpieces -->
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-[#D4AF37]/20 pb-4">
-          <div>
-            <h2 id="featured-title" class="font-serif text-3xl font-bold text-[#D4AF37]"></h2>
-            <p id="featured-sub" class="text-xs sm:text-sm text-gray-400 mt-1"></p>
-          </div>
-          <button onclick="switchView('shop')" id="see-all-btn" class="text-xs font-bold text-[#D4AF37] hover:underline flex items-center gap-1"></button>
-        </div>
-        <div id="featured-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-      </section>
+    <div class="relative z-10 max-w-4xl mx-auto text-center px-6 py-24 space-y-8">
+      <div class="anim-up delay-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C6A66B]/40 text-[#C6A66B] text-[10px] uppercase tracking-[.2em] font-semibold">
+        <span class="w-1 h-1 rounded-full bg-[#C6A66B] inline-block"></span>
+        AMORE Haute Parfumerie
+        <span class="w-1 h-1 rounded-full bg-[#C6A66B] inline-block"></span>
+      </div>
 
-      <!-- Best Sellers Section -->
-      <section id="bestsellers-section" class="bg-[#00353A]/40 py-16 border-y border-[#D4AF37]/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div class="text-center space-y-2">
-            <h2 id="bestsellers-title" class="font-serif text-3xl font-bold text-[#D4AF37]"></h2>
-            <p id="bestsellers-sub" class="text-xs sm:text-sm text-gray-400"></p>
-          </div>
-          <div id="bestsellers-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-        </div>
-      </section>
+      <h1 id="hero-title" class="anim-up delay-2 font-serif text-5xl sm:text-6xl md:text-7xl font-bold text-[#F7F5F0] leading-[1.08] tracking-tight"></h1>
 
-      <!-- Brand Story Section -->
-      <section id="story-section" class="max-w-4xl mx-auto px-4 text-center space-y-6">
-        <div class="inline-block p-3 rounded-full bg-[#D4AF37]/10 text-[#D4AF37]">
-          <i data-lucide="sparkles" class="w-8 h-8"></i>
-        </div>
-        <h2 id="story-title" class="font-serif text-3xl sm:text-4xl font-bold text-[#D4AF37]"></h2>
-        <p id="story-desc" class="text-gray-300 leading-relaxed text-base sm:text-lg font-light"></p>
-      </section>
+      <p id="hero-subtitle" class="anim-up delay-3 text-base sm:text-lg text-[#89847C] max-w-xl mx-auto leading-relaxed font-light"></p>
 
-      <!-- Customer Trust Banner -->
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-8 rounded-3xl bg-[#00383D]/60 border border-[#D4AF37]/30 text-center shadow-xl">
-          <div class="space-y-3 p-4">
-            <i data-lucide="truck" class="w-8 h-8 text-[#D4AF37] mx-auto"></i>
-            <h3 id="trust-del-title" class="font-serif font-bold text-lg text-[#FAF8F5]"></h3>
-            <p id="trust-del-desc" class="text-xs text-gray-400"></p>
-          </div>
-          <div class="space-y-3 p-4 border-y md:border-y-0 md:border-x border-[#D4AF37]/20">
-            <i data-lucide="shield-check" class="w-8 h-8 text-[#D4AF37] mx-auto"></i>
-            <h3 id="trust-auth-title" class="font-serif font-bold text-lg text-[#FAF8F5]"></h3>
-            <p id="trust-auth-desc" class="text-xs text-gray-400"></p>
-          </div>
-          <div class="space-y-3 p-4">
-            <i data-lucide="headset" class="w-8 h-8 text-[#D4AF37] mx-auto"></i>
-            <h3 id="trust-sup-title" class="font-serif font-bold text-lg text-[#FAF8F5]"></h3>
-            <p id="trust-sup-desc" class="text-xs text-gray-400"></p>
-          </div>
-        </div>
-      </section>
+      <div class="anim-up delay-4 flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+        <button onclick="switchView('shop')" class="btn-gold px-9 py-4 rounded-xl text-sm tracking-wide flex items-center gap-2 shadow-lg">
+          <span id="hero-cta"></span>
+          <i data-lucide="arrow-left" class="w-4 h-4 rtl:inline hidden"></i>
+          <i data-lucide="arrow-right" class="w-4 h-4 ltr:inline hidden"></i>
+        </button>
+        <button onclick="document.getElementById('bestsellers-section').scrollIntoView({behavior:'smooth'})" id="hero-bestsellers-btn"
+          class="btn-outline-gold px-9 py-4 rounded-xl text-sm tracking-wide">
+        </button>
+      </div>
     </div>
 
-    <!-- 2. SHOP CATALOG VIEW -->
-    <div id="view-shop" class="view-section hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      
-      <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 bg-[#00383D]/50 p-6 rounded-3xl border border-[#D4AF37]/20 shadow-lg">
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#C6A66B]/50">
+      <div class="w-px h-10 bg-gradient-to-b from-[#C6A66B]/0 to-[#C6A66B]/50"></div>
+    </div>
+  </section>
+
+  <!-- ── CATEGORIES GRID ── -->
+  <section class="max-w-7xl mx-auto px-5 lg:px-8 py-20">
+    <div class="text-center space-y-4 mb-12">
+      <p class="text-[#C6A66B] text-[10px] uppercase tracking-[.25em] font-semibold">Collections</p>
+      <h2 id="cat-title" class="font-serif text-3xl sm:text-4xl font-bold text-[#F7F5F0]"></h2>
+      <div class="gold-line"></div>
+      <p id="cat-sub" class="text-[#89847C] text-sm max-w-md mx-auto mt-3"></p>
+    </div>
+    <div id="home-categories-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"></div>
+  </section>
+
+  <!-- ── FEATURED MASTERPIECES (ivory bg) ── -->
+  <section class="ivory-section py-20">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-12">
+        <div class="space-y-3">
+          <p class="text-[#C6A66B] text-[10px] uppercase tracking-[.25em] font-semibold">Featured</p>
+          <h2 id="featured-title" class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1C1C]"></h2>
+          <div class="gold-line-left"></div>
+          <p id="featured-sub" class="text-[#89847C] text-sm mt-2"></p>
+        </div>
+        <button onclick="switchView('shop')" id="see-all-btn"
+          class="flex-shrink-0 text-[11px] font-bold text-[#1C1C1C] border-b border-[#1C1C1C] pb-0.5 hover:text-[#C6A66B] hover:border-[#C6A66B] transition-colors flex items-center gap-1.5">
+        </button>
+      </div>
+      <div id="featured-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- ── BEST SELLERS ── -->
+  <section id="bestsellers-section" class="py-20 bg-[#111111]">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="text-center space-y-4 mb-12">
+        <p class="text-[#C6A66B] text-[10px] uppercase tracking-[.25em] font-semibold">Best Sellers</p>
+        <h2 id="bestsellers-title" class="font-serif text-3xl sm:text-4xl font-bold text-[#F7F5F0]"></h2>
+        <div class="gold-line"></div>
+        <p id="bestsellers-sub" class="text-[#89847C] text-sm mt-3"></p>
+      </div>
+      <div id="bestsellers-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- ── WHY AMORE ── -->
+  <section class="ivory-section py-20">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
+      <div class="text-center space-y-4 mb-14">
+        <p class="text-[#C6A66B] text-[10px] uppercase tracking-[.25em] font-semibold">Why Choose Us</p>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[#1C1C1C]" id="whyTitle"></h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center space-y-4 p-8 rounded-2xl bg-white border border-[#D8CBB5]/60 hover:border-[#C6A66B]/50 transition-colors">
+          <div class="w-14 h-14 rounded-full bg-[#C6A66B]/10 flex items-center justify-center mx-auto border border-[#C6A66B]/20">
+            <i data-lucide="truck" class="w-6 h-6 text-[#C6A66B]"></i>
+          </div>
+          <h3 id="trust-del-title" class="font-serif font-bold text-lg text-[#1C1C1C]"></h3>
+          <p id="trust-del-desc" class="text-[#89847C] text-xs leading-relaxed"></p>
+        </div>
+        <div class="text-center space-y-4 p-8 rounded-2xl bg-white border border-[#D8CBB5]/60 hover:border-[#C6A66B]/50 transition-colors">
+          <div class="w-14 h-14 rounded-full bg-[#C6A66B]/10 flex items-center justify-center mx-auto border border-[#C6A66B]/20">
+            <i data-lucide="shield-check" class="w-6 h-6 text-[#C6A66B]"></i>
+          </div>
+          <h3 id="trust-auth-title" class="font-serif font-bold text-lg text-[#1C1C1C]"></h3>
+          <p id="trust-auth-desc" class="text-[#89847C] text-xs leading-relaxed"></p>
+        </div>
+        <div class="text-center space-y-4 p-8 rounded-2xl bg-white border border-[#D8CBB5]/60 hover:border-[#C6A66B]/50 transition-colors">
+          <div class="w-14 h-14 rounded-full bg-[#C6A66B]/10 flex items-center justify-center mx-auto border border-[#C6A66B]/20">
+            <i data-lucide="headset" class="w-6 h-6 text-[#C6A66B]"></i>
+          </div>
+          <h3 id="trust-sup-title" class="font-serif font-bold text-lg text-[#1C1C1C]"></h3>
+          <p id="trust-sup-desc" class="text-[#89847C] text-xs leading-relaxed"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BRAND STORY ── -->
+  <section id="story-section" class="py-24 bg-[#111111] relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5" style="background:radial-gradient(ellipse at center,#C6A66B 0%,transparent 70%)"></div>
+    <div class="relative max-w-3xl mx-auto px-5 text-center space-y-7">
+      <div class="inline-flex items-center gap-2 text-[#C6A66B] text-[10px] uppercase tracking-[.25em] font-semibold">
+        <span class="w-8 h-px bg-[#C6A66B] inline-block"></span>
+        Our Story
+        <span class="w-8 h-px bg-[#C6A66B] inline-block"></span>
+      </div>
+      <h2 id="story-title" class="font-serif text-4xl sm:text-5xl font-bold text-[#F7F5F0] leading-tight"></h2>
+      <p id="story-desc" class="text-[#89847C] leading-relaxed text-base font-light"></p>
+      <button onclick="switchView('shop')" class="btn-gold px-8 py-3.5 rounded-xl text-sm inline-flex items-center gap-2">
+        <span id="story-cta-text">Explore Our Collection</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="ivory-section py-20">
+    <div class="max-w-3xl mx-auto px-5 lg:px-8">
+      <div class="text-center space-y-4 mb-12">
+        <p class="text-[#C6A66B] text-[10px] uppercase tracking-[.25em] font-semibold">FAQ</p>
+        <h2 class="font-serif text-3xl font-bold text-[#1C1C1C]" id="faqTitle"></h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="space-y-3" id="faq-container"></div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT / WHATSAPP ── -->
+  <section id="contact-section" class="py-20 bg-[#111111]">
+    <div class="max-w-2xl mx-auto px-5 text-center space-y-8">
+      <div class="space-y-4">
+        <p class="text-[#C6A66B] text-[10px] uppercase tracking-[.25em] font-semibold">Contact</p>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[#F7F5F0]" id="contactTitle"></h2>
+        <div class="gold-line"></div>
+        <p class="text-[#89847C] text-sm" id="contactSub"></p>
+      </div>
+      <a href="https://wa.me/201149770420" target="_blank"
+        class="inline-flex items-center gap-3 bg-[#25D366] text-white font-bold px-10 py-4 rounded-xl text-sm hover:bg-[#20BD5A] transition-colors shadow-lg shadow-[#25D366]/20">
+        <i data-lucide="message-circle" class="w-5 h-5"></i>
+        <span id="contactWABtn">WhatsApp Us</span>
+      </a>
+      <div class="flex items-center justify-center gap-6 text-[#89847C] text-xs">
+        <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-[#C6A66B]"></i>+20 11 49770420</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#C6A66B]"></i>Cairo, Egypt</span>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /view-home -->
+
+<!-- ═══════════════════════════════════════════════ SHOP VIEW -->
+<div id="view-shop" class="view-section hidden py-10">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8 space-y-8">
+
+    <!-- Shop header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-[#D8CBB5]/15">
+      <div>
+        <h1 id="shop-title" class="font-serif text-3xl font-bold text-[#F7F5F0]"></h1>
+        <p id="shop-result-count" class="text-[#89847C] text-xs mt-1"></p>
+      </div>
+      <div class="relative w-full sm:w-72">
+        <i data-lucide="search" class="w-4 h-4 absolute left-3 rtl:right-3 top-3 text-[#89847C]"></i>
+        <input id="shop-search-input" type="text" oninput="handleSearch(this.value)"
+          class="w-full bg-[#1A1A1A] border border-[#D8CBB5]/20 text-[#F7F5F0] text-sm rounded-xl pl-10 pr-4 py-2.5 focus:outline-none focus:border-[#C6A66B] transition-colors placeholder-[#89847C]" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <!-- Sidebar filters -->
+      <aside class="bg-[#161616] border border-[#D8CBB5]/10 rounded-2xl p-6 h-fit space-y-6">
+        <div class="flex items-center justify-between border-b border-[#D8CBB5]/10 pb-4">
+          <span id="filter-title" class="text-[#C6A66B] font-semibold text-sm tracking-wide"></span>
+          <button onclick="resetFilters()" id="reset-filters-btn" class="text-[10px] text-[#89847C] hover:text-[#C6A66B] transition-colors font-medium"></button>
+        </div>
+        <!-- Categories -->
+        <div class="space-y-1.5">
+          <p id="filter-cat-label" class="text-[10px] font-bold uppercase tracking-widest text-[#89847C] mb-2"></p>
+          <div id="shop-category-list" class="space-y-1"></div>
+        </div>
+        <!-- Price -->
+        <div class="space-y-3 pt-4 border-t border-[#D8CBB5]/10">
+          <div class="flex justify-between text-xs text-[#89847C] font-medium">
+            <span id="filter-price-label"></span>
+            <span id="price-range-val" class="text-[#C6A66B] font-bold">15000 EGP</span>
+          </div>
+          <input id="price-range-input" type="range" min="500" max="15000" step="250" value="15000"
+            oninput="handlePriceRange(this.value)"
+            class="w-full h-1 accent-[#C6A66B] bg-[#2A2A2A] rounded-full" />
+        </div>
+        <!-- Sort -->
+        <div class="space-y-2 pt-4 border-t border-[#D8CBB5]/10">
+          <p id="sort-label" class="text-[10px] font-bold uppercase tracking-widest text-[#89847C]"></p>
+          <select id="sort-select" onchange="handleSort(this.value)"
+            class="w-full bg-[#1A1A1A] border border-[#D8CBB5]/20 text-[#F7F5F0] text-xs rounded-xl p-2.5 focus:outline-none focus:border-[#C6A66B]">
+            <option value="newest" id="sort-newest"></option>
+            <option value="priceLow" id="sort-low"></option>
+            <option value="priceHigh" id="sort-high"></option>
+            <option value="popular" id="sort-popular"></option>
+          </select>
+        </div>
+      </aside>
+
+      <!-- Products grid -->
+      <div class="lg:col-span-3">
+        <div id="shop-loading" class="text-center py-24 space-y-4">
+          <div class="w-8 h-8 border-2 border-[#C6A66B]/30 border-t-[#C6A66B] rounded-full spinner mx-auto"></div>
+          <p class="text-[#89847C] text-xs">Loading fragrances...</p>
+        </div>
+        <div id="shop-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <div id="shop-empty-state" class="hidden text-center py-24 space-y-4 rounded-2xl border border-dashed border-[#D8CBB5]/20">
+          <i data-lucide="search-x" class="w-10 h-10 text-[#C6A66B]/40 mx-auto"></i>
+          <p id="empty-msg" class="text-[#89847C] text-sm"></p>
+          <button onclick="resetFilters()" id="empty-reset-btn" class="btn-gold px-6 py-2.5 rounded-xl text-xs"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /view-shop -->
+
+<!-- ═══════════════════════════════════════ PRODUCT DETAIL VIEW -->
+<div id="view-product-detail" class="view-section hidden py-12">
+  <div class="max-w-6xl mx-auto px-5 lg:px-8">
+    <button onclick="switchView('shop')" id="back-to-shop-btn"
+      class="flex items-center gap-2 text-[#89847C] hover:text-[#C6A66B] text-xs font-medium mb-10 transition-colors"></button>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+      <!-- Image -->
+      <div class="rounded-2xl overflow-hidden bg-[#161616] border border-[#D8CBB5]/10 aspect-square relative">
+        <img id="pd-image" src="" alt="" class="w-full h-full object-cover">
+        <span id="pd-badge" class="hidden absolute top-4 left-4 bg-[#C6A66B] text-[#111111] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wide"></span>
+      </div>
+      <!-- Details -->
+      <div class="space-y-6">
         <div>
-          <h1 id="shop-title" class="font-serif text-3xl font-bold text-[#D4AF37]"></h1>
-          <p id="shop-result-count" class="text-xs text-gray-400 mt-1"></p>
+          <span id="pd-brand" class="text-[#C6A66B] text-[10px] uppercase tracking-[.2em] font-bold block mb-2"></span>
+          <h1 id="pd-name" class="font-serif text-3xl sm:text-4xl font-bold text-[#F7F5F0] leading-tight"></h1>
         </div>
-        <div class="relative flex-1 max-w-md">
-          <input id="shop-search-input" type="text" oninput="handleSearch(this.value)"
-            class="w-full pl-10 pr-4 rtl:pr-10 rtl:pl-4 py-3 rounded-2xl bg-[#002B30] border border-[#D4AF37]/30 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-[#D4AF37]" />
-          <i data-lucide="search" class="w-4 h-4 absolute left-3 rtl:right-3 top-3.5 text-gray-400"></i>
+        <div class="flex items-center gap-4 py-5 border-y border-[#D8CBB5]/10">
+          <span id="pd-price" class="font-serif text-3xl font-bold text-[#C6A66B]"></span>
+          <span id="pd-old-price" class="text-sm text-[#89847C] line-through hidden"></span>
+          <span id="pd-stock-badge" class="text-[10px] px-3 py-1 rounded-full font-bold"></span>
         </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <aside class="space-y-6 bg-[#00383D]/30 p-6 rounded-3xl border border-[#D4AF37]/20 h-fit shadow-md">
-          <div class="flex items-center justify-between border-b border-[#D4AF37]/20 pb-4">
-            <span id="filter-title" class="font-serif font-bold text-sm text-[#D4AF37] flex items-center gap-2"></span>
-            <button onclick="resetFilters()" id="reset-filters-btn" class="text-xs text-gray-400 hover:text-[#D4AF37] flex items-center gap-1"></button>
-          </div>
-          <div class="space-y-2">
-            <label id="filter-cat-label" class="text-[10px] font-bold uppercase tracking-wider text-gray-300 block"></label>
-            <div id="shop-category-list" class="space-y-1"></div>
-          </div>
-          <div class="space-y-3 pt-4 border-t border-[#D4AF37]/20">
-            <div class="flex justify-between items-center text-xs font-bold text-gray-300">
-              <span id="filter-price-label"></span>
-              <span id="price-range-val" class="text-[#D4AF37]">15000 EGP</span>
+        <p id="pd-desc" class="text-[#89847C] text-sm leading-relaxed font-light"></p>
+        <!-- Notes -->
+        <div class="bg-[#161616] border border-[#D8CBB5]/10 rounded-xl p-5 space-y-3">
+          <h3 id="pd-notes-title" class="text-[#C6A66B] text-xs font-bold uppercase tracking-wider"></h3>
+          <div class="grid grid-cols-3 gap-3 text-xs">
+            <div class="bg-[#111111] rounded-lg p-3">
+              <span id="pd-top-label" class="text-[#C6A66B] font-bold block mb-1 text-[10px] uppercase tracking-wide"></span>
+              <span id="pd-top-val" class="text-[#89847C]"></span>
             </div>
-            <input id="price-range-input" type="range" min="500" max="15000" step="250" value="15000"
-              oninput="handlePriceRange(this.value)" class="w-full accent-[#D4AF37] bg-[#002B30]" />
-          </div>
-          <div class="space-y-2 pt-4 border-t border-[#D4AF37]/20">
-            <label id="sort-label" class="text-[10px] font-bold uppercase tracking-wider text-gray-300 block"></label>
-            <select id="sort-select" onchange="handleSort(this.value)"
-              class="w-full p-2.5 rounded-xl bg-[#002B30] border border-[#D4AF37]/30 text-xs text-white focus:outline-none focus:border-[#D4AF37]">
-              <option value="newest" id="sort-newest"></option>
-              <option value="priceLow" id="sort-low"></option>
-              <option value="priceHigh" id="sort-high"></option>
-              <option value="popular" id="sort-popular"></option>
-            </select>
-          </div>
-        </aside>
-
-        <div class="lg:col-span-3">
-          <!-- Loading state for Firebase products -->
-          <div id="shop-loading" class="text-center py-20 space-y-4">
-            <div class="w-10 h-10 border-4 border-[#D4AF37]/30 border-t-[#D4AF37] rounded-full animate-spin mx-auto"></div>
-            <p class="text-gray-400 text-xs">Loading fragrances...</p>
-          </div>
-          <div id="shop-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-          <div id="shop-empty-state" class="hidden text-center py-20 bg-[#00383D]/20 rounded-3xl border border-dashed border-[#D4AF37]/30 space-y-4">
-            <i data-lucide="alert-circle" class="w-12 h-12 text-[#D4AF37] mx-auto opacity-60"></i>
-            <p id="empty-msg" class="text-gray-300 text-sm font-medium"></p>
-            <button onclick="resetFilters()" id="empty-reset-btn" class="px-6 py-2.5 rounded-xl bg-[#D4AF37] text-[#002B30] font-bold text-xs hover:bg-[#C29F2E] transition-colors"></button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. PRODUCT DETAIL VIEW -->
-    <div id="view-product-detail" class="view-section hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
-      <button onclick="switchView('shop')" id="back-to-shop-btn" class="text-xs font-bold text-[#D4AF37] hover:underline flex items-center gap-2"></button>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
-        <div class="rounded-3xl overflow-hidden bg-[#002024] border border-[#D4AF37]/30 shadow-2xl aspect-square relative">
-          <img id="pd-image" src="" alt="" class="w-full h-full object-cover">
-          <span id="pd-badge" class="absolute top-4 left-4 bg-[#D4AF37] text-[#002B30] text-xs font-bold px-3 py-1.5 rounded-full shadow hidden"></span>
-        </div>
-        <div class="space-y-6">
-          <div>
-            <span id="pd-brand" class="text-xs uppercase font-bold tracking-widest text-[#D4AF37]"></span>
-            <h1 id="pd-name" class="font-serif text-3xl sm:text-4xl font-bold text-[#FAF8F5] mt-1"></h1>
-          </div>
-          <div class="flex items-center gap-4 border-y border-[#D4AF37]/20 py-4">
-            <span id="pd-price" class="font-serif font-bold text-3xl text-[#D4AF37]"></span>
-            <span id="pd-old-price" class="text-sm text-gray-400 line-through hidden"></span>
-            <span id="pd-stock-badge" class="text-xs px-3 py-1 rounded-full font-bold"></span>
-          </div>
-          <p id="pd-desc" class="text-gray-300 text-sm leading-relaxed font-light"></p>
-          <div id="pd-notes-container" class="bg-[#00383D]/40 p-5 rounded-2xl border border-[#D4AF37]/20 space-y-3">
-            <h3 id="pd-notes-title" class="font-serif font-bold text-xs text-[#D4AF37] flex items-center gap-2"></h3>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div class="p-2.5 rounded-xl bg-[#002B30]">
-                <span id="pd-top-label" class="text-[#D4AF37] font-bold block mb-1"></span>
-                <span id="pd-top-val" class="text-gray-300"></span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-[#002B30]">
-                <span id="pd-heart-label" class="text-[#D4AF37] font-bold block mb-1"></span>
-                <span id="pd-heart-val" class="text-gray-300"></span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-[#002B30]">
-                <span id="pd-base-label" class="text-[#D4AF37] font-bold block mb-1"></span>
-                <span id="pd-base-val" class="text-gray-300"></span>
-              </div>
+            <div class="bg-[#111111] rounded-lg p-3">
+              <span id="pd-heart-label" class="text-[#C6A66B] font-bold block mb-1 text-[10px] uppercase tracking-wide"></span>
+              <span id="pd-heart-val" class="text-[#89847C]"></span>
+            </div>
+            <div class="bg-[#111111] rounded-lg p-3">
+              <span id="pd-base-label" class="text-[#C6A66B] font-bold block mb-1 text-[10px] uppercase tracking-wide"></span>
+              <span id="pd-base-val" class="text-[#89847C]"></span>
             </div>
           </div>
-          <div id="pd-sizes-container" class="space-y-2">
-            <label id="pd-size-label" class="text-[10px] font-bold uppercase tracking-wider text-gray-300 block"></label>
-            <div id="pd-size-options" class="flex gap-3"></div>
-          </div>
-          <div class="flex flex-col sm:flex-row gap-4 pt-4">
-            <div class="flex items-center justify-between bg-[#002B30] border border-[#D4AF37]/30 rounded-xl p-2 w-full sm:w-36">
-              <button onclick="adjustDetailQty(-1)" class="p-1 text-gray-300 hover:text-[#D4AF37]"><i data-lucide="minus" class="w-4 h-4"></i></button>
-              <span id="pd-qty-val" class="font-bold text-sm text-white">1</span>
-              <button onclick="adjustDetailQty(1)" class="p-1 text-gray-300 hover:text-[#D4AF37]"><i data-lucide="plus" class="w-4 h-4"></i></button>
-            </div>
-            <button onclick="addDetailToCart()" id="pd-add-cart-btn" class="flex-1 py-3.5 px-6 rounded-xl bg-[#D4AF37] hover:bg-[#C29F2E] text-[#002B30] font-bold text-xs shadow-xl flex items-center justify-center gap-2 transition-all">
-              <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-              <span id="pd-add-cart-text"></span>
+        </div>
+        <!-- Sizes -->
+        <div class="space-y-2">
+          <label id="pd-size-label" class="text-[10px] font-bold uppercase tracking-wider text-[#89847C] block"></label>
+          <div id="pd-size-options" class="flex flex-wrap gap-2"></div>
+        </div>
+        <!-- Qty + Add to cart -->
+        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+          <div class="flex items-center bg-[#161616] border border-[#D8CBB5]/15 rounded-xl overflow-hidden w-full sm:w-32">
+            <button onclick="adjustDetailQty(-1)" class="px-3 py-3 text-[#89847C] hover:text-[#C6A66B] transition-colors">
+              <i data-lucide="minus" class="w-4 h-4"></i>
+            </button>
+            <span id="pd-qty-val" class="flex-1 text-center font-bold text-sm text-[#F7F5F0]">1</span>
+            <button onclick="adjustDetailQty(1)" class="px-3 py-3 text-[#89847C] hover:text-[#C6A66B] transition-colors">
+              <i data-lucide="plus" class="w-4 h-4"></i>
             </button>
           </div>
-          <button onclick="quickOrderCurrentDetailWA()" class="w-full py-3.5 px-6 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold text-xs shadow-xl flex items-center justify-center gap-2 transition-all">
-            <i data-lucide="phone" class="w-4 h-4"></i>
-            <span id="pd-quick-wa-text"></span>
+          <button onclick="addDetailToCart()" id="pd-add-cart-btn" class="flex-1 btn-gold py-3.5 rounded-xl text-sm flex items-center justify-center gap-2">
+            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+            <span id="pd-add-cart-text"></span>
           </button>
         </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- SHOPPING CART DRAWER MODAL -->
-  <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-xs transition-opacity hidden">
-    <div class="absolute inset-y-0 right-0 ltr:right-0 rtl:left-0 max-w-full flex">
-      <div class="w-screen max-w-md bg-[#002B30] text-white border-l border-[#D4AF37]/30 shadow-2xl flex flex-col justify-between">
-        <div class="p-6 border-b border-[#D4AF37]/20 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <i data-lucide="shopping-bag" class="w-5 h-5 text-[#D4AF37]"></i>
-            <h2 id="cart-drawer-title" class="font-serif text-xl font-bold text-[#D4AF37]"></h2>
-          </div>
-          <button onclick="toggleCartDrawer(false)" class="p-2 text-gray-400 hover:text-white">
-            <i data-lucide="x" class="w-5 h-5"></i>
-          </button>
-        </div>
-        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
-        <div id="cart-drawer-footer" class="p-6 border-t border-[#D4AF37]/20 space-y-4 bg-[#002024] hidden">
-          <div class="flex justify-between items-center text-sm font-bold">
-            <span id="cart-subtotal-label" class="text-gray-300"></span>
-            <span id="cart-subtotal-val" class="font-serif text-xl text-[#D4AF37]"></span>
-          </div>
-          <button onclick="openCheckoutModal()" class="w-full py-4 rounded-xl bg-[#D4AF37] hover:bg-[#C29F2E] text-[#002B30] font-bold text-xs shadow-xl flex items-center justify-center gap-2 transition-all">
-            <span id="cart-checkout-btn"></span>
-            <i data-lucide="phone" class="w-4 h-4"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CHECKOUT / WHATSAPP MODAL -->
-  <div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
-    <div class="relative w-full max-w-lg bg-[#002B30] border border-[#D4AF37]/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl text-white">
-      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 rtl:left-4 rtl:right-auto p-2 text-gray-400 hover:text-white">
-        <i data-lucide="x" class="w-6 h-6"></i>
-      </button>
-      <div class="space-y-1">
-        <h2 id="checkout-modal-title" class="font-serif text-2xl font-bold text-[#D4AF37]"></h2>
-        <p id="checkout-modal-notice" class="text-xs text-gray-300 font-light"></p>
-      </div>
-      <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
-        <div>
-          <label id="lbl-cust-name" class="text-xs font-bold text-gray-300 block mb-1"></label>
-          <input id="checkout-name" type="text" required class="w-full p-3 rounded-xl bg-[#00383D] border border-[#D4AF37]/30 text-xs text-white focus:outline-none focus:border-[#D4AF37]" />
-        </div>
-        <div>
-          <label id="lbl-cust-phone" class="text-xs font-bold text-gray-300 block mb-1"></label>
-          <input id="checkout-phone" type="tel" required placeholder="01xxxxxxxx" class="w-full p-3 rounded-xl bg-[#00383D] border border-[#D4AF37]/30 text-xs text-white focus:outline-none focus:border-[#D4AF37]" />
-        </div>
-        <div>
-          <label id="lbl-cust-address" class="text-xs font-bold text-gray-300 block mb-1"></label>
-          <textarea id="checkout-address" required rows="2" class="w-full p-3 rounded-xl bg-[#00383D] border border-[#D4AF37]/30 text-xs text-white focus:outline-none focus:border-[#D4AF37]"></textarea>
-        </div>
-        <div>
-          <label id="lbl-cust-notes" class="text-xs font-bold text-gray-300 block mb-1"></label>
-          <input id="checkout-notes" type="text" class="w-full p-3 rounded-xl bg-[#00383D] border border-[#D4AF37]/30 text-xs text-white focus:outline-none focus:border-[#D4AF37]" />
-        </div>
-        <button type="submit" class="w-full py-4 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold text-xs shadow-xl flex items-center justify-center gap-2 transition-all">
-          <i data-lucide="phone" class="w-4 h-4"></i>
-          <span id="checkout-send-btn"></span>
+        <button onclick="quickOrderCurrentDetailWA()" class="w-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold py-3.5 rounded-xl text-sm flex items-center justify-center gap-2 transition-colors">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span id="pd-quick-wa-text"></span>
         </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- QUICK VIEW MODAL -->
-  <div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
-    <div class="relative w-full max-w-2xl bg-[#002B30] border border-[#D4AF37]/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl text-white">
-      <button onclick="closeQuickView()" class="absolute top-4 right-4 rtl:left-4 rtl:right-auto p-2 text-gray-400 hover:text-white">
-        <i data-lucide="x" class="w-6 h-6"></i>
-      </button>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
-        <div class="aspect-square rounded-2xl overflow-hidden bg-[#002024]">
-          <img id="qv-image" src="" alt="" class="w-full h-full object-cover">
-        </div>
-        <div class="space-y-4">
-          <span id="qv-brand" class="text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest"></span>
-          <h2 id="qv-name" class="font-serif text-2xl font-bold"></h2>
-          <div id="qv-price" class="font-serif text-2xl font-bold text-[#D4AF37]"></div>
-          <p id="qv-desc" class="text-xs text-gray-300 font-light line-clamp-3"></p>
-          <div class="space-y-3 pt-2">
-            <button onclick="addQuickViewToCart()" id="qv-add-cart-btn" class="w-full py-3 rounded-xl bg-[#D4AF37] text-[#002B30] font-bold text-xs hover:bg-[#C29F2E] transition-colors"></button>
-            <button onclick="quickOrderQVWA()" id="qv-wa-btn" class="w-full py-3 rounded-xl bg-[#25D366] text-white font-bold text-xs hover:bg-[#20BD5A] transition-colors flex items-center justify-center gap-2">
-              <i data-lucide="phone" class="w-4 h-4"></i>
-              <span>WhatsApp Direct</span>
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
+</div><!-- /view-product-detail -->
 
-  <!-- FOOTER -->
-  <footer class="bg-[#002024] text-white border-t border-[#D4AF37]/20 pt-16 pb-12 mt-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        
-        <!-- Brand identity col -->
-        <div class="space-y-4">
-          <div class="flex items-center gap-3">
-            <svg width="32" height="32" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="52" y="2" width="16" height="8" rx="2" fill="#D4AF37"/>
-              <rect x="28" y="18" width="64" height="72" rx="6" fill="none" stroke="#D4AF37" stroke-width="4"/>
-              <line x1="28" y1="18" x2="92" y2="90" stroke="#D4AF37" stroke-width="3.5"/>
-              <line x1="92" y1="18" x2="28" y2="90" stroke="#D4AF37" stroke-width="3.5"/>
-              <rect x="48" y="10" width="24" height="10" rx="2" fill="none" stroke="#D4AF37" stroke-width="3"/>
-              <rect x="28" y="18" width="64" height="72" rx="6" fill="none" stroke="#D4AF37" stroke-width="4"/>
-              <path d="M 44 88 Q 60 100 76 88" fill="none" stroke="#D4AF37" stroke-width="3.5" stroke-linecap="round"/>
-            </svg>
-            <span class="font-serif text-2xl font-bold tracking-widest text-[#D4AF37]">AMORE</span>
-          </div>
-          <p id="footer-desc" class="text-xs text-gray-400 leading-relaxed font-light"></p>
-        </div>
+</main>
 
-        <!-- Quick Links -->
-        <div class="space-y-3">
-          <h4 id="footer-gold-links" class="font-serif font-bold text-sm text-[#D4AF37]"></h4>
-          <ul class="space-y-2 text-xs text-gray-400">
-            <li><button onclick="switchView('home')" id="foot-nav-home" class="hover:text-white"></button></li>
-            <li><button onclick="switchView('shop')" id="foot-nav-shop" class="hover:text-white"></button></li>
-            <li><button onclick="scrollToStory()" id="foot-nav-about" class="hover:text-white"></button></li>
-          </ul>
-        </div>
-
-        <!-- Contact details -->
-        <div class="space-y-3">
-          <h4 id="footer-gold-contact" class="font-serif font-bold text-sm text-[#D4AF37]"></h4>
-          <ul class="space-y-2 text-xs text-gray-400">
-            <li class="flex items-center gap-2">
-              <i data-lucide="phone" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
-              <span>+20 11 49770420</span>
-            </li>
-            <li class="flex items-center gap-2">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#D4AF37]"></i>
-              <span>Cairo, Egypt</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Support information -->
-        <div class="space-y-3">
-          <h4 id="footer-gold-hours" class="font-serif font-bold text-sm text-[#D4AF37]"></h4>
-          <p id="footer-hours-desc" class="text-xs text-gray-400 leading-relaxed"></p>
-        </div>
-      </div>
-
-      <div class="pt-8 border-t border-[#D4AF37]/10 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
-        <p>© 2026 AMORE Exclusive Perfume. <span id="footer-rights"></span></p>
-        <div class="flex items-center gap-4">
-          <a href="https://wa.me/201149770420" target="_blank" class="hover:text-[#D4AF37]">WhatsApp Direct Support</a>
-          <!-- Unobtrusive Admin Link -->
-          <a href="admin.html" class="text-gray-600 hover:text-[#D4AF37]/50 transition-colors text-[10px] flex items-center gap-1">
-            <i data-lucide="lock" class="w-3 h-3"></i>
-            <span id="footer-admin-link">Admin</span>
+<!-- ═══════════════════════════════════════════════════════ FOOTER -->
+<footer class="bg-[#0D0D0D] border-t border-[#D8CBB5]/10 pt-16 pb-10 mt-0">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[#D8CBB5]/10">
+      <!-- Brand -->
+      <div class="space-y-5">
+        <img src="assets/logo.svg" alt="AMORE" class="h-14 w-14 object-contain" />
+        <p id="footer-desc" class="text-[#89847C] text-xs leading-relaxed"></p>
+        <div class="flex gap-3">
+          <a href="https://wa.me/201149770420" target="_blank" class="w-8 h-8 rounded-full border border-[#D8CBB5]/20 flex items-center justify-center text-[#89847C] hover:border-[#C6A66B] hover:text-[#C6A66B] transition-all">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+          </a>
+          <a href="https://wa.me/201149770420" target="_blank" class="w-8 h-8 rounded-full border border-[#D8CBB5]/20 flex items-center justify-center text-[#89847C] hover:border-[#C6A66B] hover:text-[#C6A66B] transition-all">
+            <i data-lucide="instagram" class="w-4 h-4"></i>
           </a>
         </div>
       </div>
+      <!-- Navigation -->
+      <div class="space-y-4">
+        <h4 id="footer-gold-links" class="font-serif font-bold text-[#F7F5F0] text-sm"></h4>
+        <ul class="space-y-2.5 text-xs text-[#89847C]">
+          <li><button onclick="switchView('home')" id="foot-nav-home" class="hover:text-[#C6A66B] transition-colors"></button></li>
+          <li><button onclick="switchView('shop')" id="foot-nav-shop" class="hover:text-[#C6A66B] transition-colors"></button></li>
+          <li><button onclick="scrollToStory()" id="foot-nav-about" class="hover:text-[#C6A66B] transition-colors"></button></li>
+          <li><button onclick="filterAndGoShop('offers')" id="foot-nav-offers" class="hover:text-[#C6A66B] transition-colors"></button></li>
+        </ul>
+      </div>
+      <!-- Contact -->
+      <div class="space-y-4">
+        <h4 id="footer-gold-contact" class="font-serif font-bold text-[#F7F5F0] text-sm"></h4>
+        <ul class="space-y-2.5 text-xs text-[#89847C]">
+          <li class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-[#C6A66B]"></i>+20 11 49770420</li>
+          <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#C6A66B]"></i>Cairo, Egypt</li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="message-circle" class="w-3.5 h-3.5 text-[#25D366]"></i>
+            <a href="https://wa.me/201149770420" target="_blank" class="hover:text-[#C6A66B] transition-colors">WhatsApp</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Hours -->
+      <div class="space-y-4">
+        <h4 id="footer-gold-hours" class="font-serif font-bold text-[#F7F5F0] text-sm"></h4>
+        <p id="footer-hours-desc" class="text-[#89847C] text-xs leading-relaxed"></p>
+        <a href="https://wa.me/201149770420" target="_blank"
+          class="inline-flex items-center gap-2 btn-gold px-5 py-2.5 rounded-xl text-xs">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+          <span id="footer-wa-text">Order Now</span>
+        </a>
+      </div>
     </div>
-  </footer>
+    <!-- Bottom bar -->
+    <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] text-[#89847C]">
+      <p>© 2026 AMORE Exclusive Perfume. <span id="footer-rights"></span></p>
+      <div class="flex items-center gap-4">
+        <a href="https://wa.me/201149770420" target="_blank" class="hover:text-[#C6A66B] transition-colors">WhatsApp Support</a>
+        <a href="admin.html" class="flex items-center gap-1 text-[#89847C]/40 hover:text-[#C6A66B]/60 transition-colors">
+          <i data-lucide="lock" class="w-3 h-3"></i>
+          <span id="footer-admin-link">Admin</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
 
-  <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/201149770420?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20AMORE%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%B9%D8%B7%D9%88%D8%B1%D9%83%D9%85%20%D8%A7%D9%84%D9%81%D8%A7%D8%AE%D8%B1%D8%A9."
-    target="_blank"
-    class="fixed bottom-6 left-6 rtl:left-6 rtl:right-auto z-40 bg-[#25D366] text-white p-3.5 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group">
-    <i data-lucide="phone" class="w-6 h-6 fill-current"></i>
-    <span id="floating-wa-text" class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap text-xs font-bold px-0 group-hover:px-2"></span>
-  </a>
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/201149770420?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%20AMORE"
+  target="_blank"
+  class="fixed bottom-6 left-6 z-40 bg-[#25D366] text-white p-3.5 rounded-full shadow-xl hover:scale-110 transition-transform duration-300 flex items-center justify-center group">
+  <i data-lucide="message-circle" class="w-5 h-5"></i>
+  <span id="floating-wa-text" class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap text-xs font-bold px-0 group-hover:px-2"></span>
+</a>
 
-  <!-- Firebase SDK (Modular v10) -->
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-    import { getFirestore, collection, getDocs, onSnapshot, query, orderBy, where } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+<!-- ══════════════════════════════════════════════ CART DRAWER -->
+<div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="toggleCartDrawer(false)"></div>
+  <div class="absolute inset-y-0 right-0 rtl:left-0 rtl:right-auto w-full max-w-md bg-[#161616] border-l border-[#D8CBB5]/10 shadow-2xl flex flex-col">
+    <div class="p-6 border-b border-[#D8CBB5]/10 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i data-lucide="shopping-bag" class="w-5 h-5 text-[#C6A66B]"></i>
+        <h2 id="cart-drawer-title" class="font-serif text-xl font-bold text-[#F7F5F0]"></h2>
+      </div>
+      <button onclick="toggleCartDrawer(false)" class="text-[#89847C] hover:text-[#F7F5F0] transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+    <div id="cart-drawer-footer" class="p-6 border-t border-[#D8CBB5]/10 space-y-4 bg-[#111111] hidden">
+      <div class="flex justify-between items-center">
+        <span id="cart-subtotal-label" class="text-[#89847C] text-sm font-medium"></span>
+        <span id="cart-subtotal-val" class="font-serif text-xl font-bold text-[#C6A66B]"></span>
+      </div>
+      <button onclick="openCheckoutModal()" class="w-full btn-gold py-4 rounded-xl text-sm flex items-center justify-center gap-2">
+        <span id="cart-checkout-btn"></span>
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </div>
+</div>
 
-    // ─────────────────────────────────────────────────────────────────
-    // FIREBASE CONFIGURATION
-    // Replace these placeholder values with your actual Firebase project
-    // config from: Firebase Console → Project Settings → Your Apps → Web
-    // ─────────────────────────────────────────────────────────────────
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
+<!-- ═══════════════════════════════════════ CHECKOUT MODAL -->
+<div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+  <div class="relative w-full max-w-lg bg-[#161616] border border-[#D8CBB5]/15 rounded-2xl p-7 space-y-6 shadow-2xl text-[#F7F5F0]">
+    <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 rtl:left-4 rtl:right-auto text-[#89847C] hover:text-[#F7F5F0] transition-colors">
+      <i data-lucide="x" class="w-5 h-5"></i>
+    </button>
+    <div>
+      <h2 id="checkout-modal-title" class="font-serif text-2xl font-bold text-[#C6A66B]"></h2>
+      <p id="checkout-modal-notice" class="text-[#89847C] text-xs mt-1 leading-relaxed"></p>
+    </div>
+    <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+      <div>
+        <label id="lbl-cust-name" class="text-xs font-semibold text-[#89847C] block mb-1.5"></label>
+        <input id="checkout-name" type="text" required class="w-full bg-[#111111] border border-[#D8CBB5]/15 text-[#F7F5F0] text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-[#C6A66B] transition-colors placeholder-[#89847C]/50" />
+      </div>
+      <div>
+        <label id="lbl-cust-phone" class="text-xs font-semibold text-[#89847C] block mb-1.5"></label>
+        <input id="checkout-phone" type="tel" required placeholder="01xxxxxxxx" class="w-full bg-[#111111] border border-[#D8CBB5]/15 text-[#F7F5F0] text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-[#C6A66B] transition-colors placeholder-[#89847C]/50" />
+      </div>
+      <div>
+        <label id="lbl-cust-address" class="text-xs font-semibold text-[#89847C] block mb-1.5"></label>
+        <textarea id="checkout-address" required rows="2" class="w-full bg-[#111111] border border-[#D8CBB5]/15 text-[#F7F5F0] text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-[#C6A66B] transition-colors resize-none placeholder-[#89847C]/50"></textarea>
+      </div>
+      <div>
+        <label id="lbl-cust-notes" class="text-xs font-semibold text-[#89847C] block mb-1.5"></label>
+        <input id="checkout-notes" type="text" class="w-full bg-[#111111] border border-[#D8CBB5]/15 text-[#F7F5F0] text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-[#C6A66B] transition-colors placeholder-[#89847C]/50" />
+      </div>
+      <button type="submit" class="w-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold py-4 rounded-xl text-sm flex items-center justify-center gap-2 transition-colors shadow-lg">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <span id="checkout-send-btn"></span>
+      </button>
+    </form>
+  </div>
+</div>
 
-    // Initialize Firebase
-    let db = null;
-    let firebaseReady = false;
-
-    try {
-      const app = initializeApp(firebaseConfig);
-      db = getFirestore(app);
-      firebaseReady = true;
-      console.log('[AMORE] Firebase connected successfully.');
-    } catch (err) {
-      console.warn('[AMORE] Firebase not configured — running in offline demo mode.', err.message);
-    }
-
-    // Expose to global scope for use in the main script
-    window.__amoreFirestore = db;
-    window.__amoreFirebaseReady = firebaseReady;
-    window.__amoreFirestoreModules = { collection, getDocs, onSnapshot, query, orderBy, where };
-
-    // Trigger main app init after Firebase setup
-    window.dispatchEvent(new CustomEvent('firebase-ready'));
-  </script>
-
-  <!-- APP STATE & LOGIC -->
-  <script>
-    const WHATSAPP_NUMBER = "201149770420";
-
-    // ─── FALLBACK SEED CATALOG (used when Firebase not configured) ────
-    const SEED_PRODUCTS = [
-      { id: "seed_1", name_en: "Dior Sauvage Eau de Parfum", name_ar: "ديور سوفاج أو دي بارفان", brand: "Dior", category: "men", categoryIds: ["men","bestseller"], price: 3200, oldPrice: 3800, sizes: ["50ml","100ml"], stock: 15, inStock: true, isFeatured: true, isBestSeller: true, image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80", notes: { top: "Bergamot", heart: "Sichuan Pepper", base: "Ambroxan" }, desc_en: "A radically fresh composition dictated by a signature ring of manifesto.", desc_ar: "تركيبة فائقة الانتعاش تعبر عن الرجولة الحديثة والجاذبية." },
-      { id: "seed_2", name_en: "Paco Rabanne One Million", name_ar: "باكو رابان وان ميليون", brand: "Paco Rabanne", category: "men", categoryIds: ["men","bestseller"], price: 2450, oldPrice: 2900, sizes: ["100ml"], stock: 20, inStock: true, isFeatured: true, isBestSeller: true, image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80", notes: { top: "Blood Mandarin", heart: "Cinnamon", base: "Leather" }, desc_en: "High shine gold signature blend of spicy leather and amber.", desc_ar: "عطر النجاح والجاذبية بنفحات الجلود التابلية والعنبر." },
-      { id: "seed_3", name_en: "Louis Vuitton Imagination", name_ar: "لوي فيتون إيماجيناسيون", brand: "Louis Vuitton", category: "luxury", categoryIds: ["men","luxury","unisex"], price: 7800, oldPrice: null, sizes: ["100ml"], stock: 5, inStock: true, isFeatured: true, isBestSeller: false, image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80", notes: { top: "Citron", heart: "Ginger", base: "Black Tea" }, desc_en: "An ethereal key to freedom driven by black tea and luminous citrus.", desc_ar: "مفتاح خيالي للحرية بعبير الشاي الأسود والحمضيات النضرة." },
-      { id: "seed_4", name_en: "Xerjoff Erba Pura", name_ar: "زيرجوف إيربا بورا", brand: "Xerjoff", category: "unisex", categoryIds: ["unisex","luxury","bestseller"], price: 6100, oldPrice: 6800, sizes: ["100ml"], stock: 8, inStock: true, isFeatured: true, isBestSeller: true, image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes: { top: "Sicilian Orange", heart: "Fruits", base: "White Musk" }, desc_en: "Delicious modern blend of Mediterranean citrus and sweet fruits.", desc_ar: "مزيج فاخر من الحمضيات الصقلية والفواكه مع المسك والعنبر." },
-      { id: "seed_5", name_en: "Lattafa Khamrah", name_ar: "لطافة خمرة", brand: "Lattafa", category: "oriental", categoryIds: ["oriental","unisex","bestseller"], price: 1450, oldPrice: 1700, sizes: ["100ml"], stock: 25, inStock: true, isFeatured: true, isBestSeller: true, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80", notes: { top: "Cinnamon", heart: "Dates", base: "Vanilla" }, desc_en: "Warm gourmand sweet oriental fragrance with rich cinnamon and vanilla.", desc_ar: "عطر شرقي دافئ بنفحات القرفة والتمر والڤانيلا الفاخرة." },
-      { id: "seed_6", name_en: "Lattafa Khamrah Qahwa", name_ar: "لطافة خمرة قهوة", brand: "Lattafa", category: "oriental", categoryIds: ["oriental","unisex","offers"], price: 1600, oldPrice: 1950, sizes: ["100ml"], stock: 12, inStock: true, isFeatured: false, isBestSeller: false, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80", notes: { top: "Cardamom", heart: "Coffee", base: "Vanilla" }, desc_en: "Enhanced edition with rich Arabic roasted coffee notes.", desc_ar: "إصدار مُطور ممزوج بأرقى لمسات القهوة العربية المحمصة." },
-      { id: "seed_7", name_en: "Paco Rabanne Invictus", name_ar: "باكو رابان إنفيكتوس", brand: "Paco Rabanne", category: "men", categoryIds: ["men"], price: 2300, oldPrice: 2700, sizes: ["100ml"], stock: 14, inStock: true, isFeatured: false, isBestSeller: false, image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80", notes: { top: "Sea Notes", heart: "Jasmine", base: "Guaiac Wood" }, desc_en: "Fresh woody notes inspired by athletic glory and invincible energy.", desc_ar: "عطر النصر والقوة بعبير البحار والأخشاب العطرية." },
-      { id: "seed_8", name_en: "Carolina Herrera Good Girl", name_ar: "كارولينا هيريرا جود جيرل", brand: "Carolina Herrera", category: "women", categoryIds: ["women","bestseller"], price: 3100, oldPrice: 3600, sizes: ["80ml"], stock: 18, inStock: true, isFeatured: true, isBestSeller: true, image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes: { top: "Almond", heart: "Tuberose", base: "Cacao" }, desc_en: "Seductive blend of dark cacao and luminous white florals.", desc_ar: "مزيج جذاب يجمع بين الياسمين والكاكاو والڤانيلا." },
-      { id: "seed_9", name_en: "Lullaby Pink", name_ar: "لوللابي بينك", brand: "Fragrance World", category: "women", categoryIds: ["women","offers"], price: 1200, oldPrice: 1500, sizes: ["100ml"], stock: 20, inStock: true, isFeatured: false, isBestSeller: false, image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes: { top: "Peach", heart: "Rose", base: "Musk" }, desc_en: "A soft feminine floral with peach and rose.", desc_ar: "عطر نسائي ناعم بنفحات الخوخ والورود." },
-      { id: "seed_10", name_en: "Jean Paul Gaultier Scandal", name_ar: "جان بول غوتيه إسكاندال", brand: "JPG", category: "women", categoryIds: ["women","offers"], price: 2900, oldPrice: 3400, sizes: ["80ml"], stock: 9, inStock: true, isFeatured: false, isBestSeller: false, image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes: { top: "Blood Orange", heart: "Honey", base: "Patchouli" }, desc_en: "An elegant aura dirtied by the spirit of Paris night life.", desc_ar: "عبير أنثوي جذاب بنفحات العسل والبرتقال والباتشولي." },
-      { id: "seed_11", name_en: "Sugary", name_ar: "سوجاري", brand: "Lattafa", category: "women", categoryIds: ["women","offers"], price: 1100, oldPrice: 1400, sizes: ["100ml"], stock: 30, inStock: true, isFeatured: false, isBestSeller: false, image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes: { top: "Berry", heart: "Sugar", base: "Vanilla" }, desc_en: "Sweet gourmand fragrance with berry and vanilla notes.", desc_ar: "عطر حلو بنفحات التوت والسكر والڤانيلا." },
-      { id: "seed_12", name_en: "Maison Francis Kurkdjian Baccarat Rouge 540", name_ar: "باكارات روج 540", brand: "MFK", category: "unisex", categoryIds: ["unisex","luxury","bestseller"], price: 9500, oldPrice: 11000, sizes: ["70ml"], stock: 4, inStock: true, isFeatured: true, isBestSeller: true, image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80", notes: { top: "Saffron", heart: "Amberwood", base: "Cedar" }, desc_en: "Luminous poetic alchemy with amber floral woody breeze.", desc_ar: "أيقونة العطور الفاخرة تمزج الزعفران مع العنبر الكريستالي." },
-      { id: "seed_13", name_en: "Tom Ford Oud Wood", name_ar: "توم فورد أود وود", brand: "Tom Ford", category: "unisex", categoryIds: ["unisex","luxury","oriental"], price: 7200, oldPrice: 8100, sizes: ["100ml"], stock: 7, inStock: true, isFeatured: true, isBestSeller: false, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80", notes: { top: "Rare Oud", heart: "Cardamom", base: "Sandalwood" }, desc_en: "One of the rarest, most precious ingredients in perfumery.", desc_ar: "تجربة عطرية ملكية مستوحاة من أندر خشب العود والهيل." },
-      { id: "seed_14", name_en: "Versace Eros Eau de Parfum", name_ar: "فرزاتشي إيروس أو دي بارفان", brand: "Versace", category: "men", categoryIds: ["men","bestseller"], price: 2600, oldPrice: 3100, sizes: ["100ml"], stock: 16, inStock: true, isFeatured: true, isBestSeller: true, image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80", notes: { top: "Mint, Apple", heart: "Tonka Bean", base: "Vanilla" }, desc_en: "A scent that interprets sublime masculinity through a luminous aura.", desc_ar: "عطر الجاذبية الإغريقية بنفحات النعناع والڤانيلا." },
-      { id: "seed_15", name_en: "Chanel Bleu de Chanel Parfum", name_ar: "شانيل بلو دي شانيل بارفان", brand: "Chanel", category: "men", categoryIds: ["men","luxury","bestseller"], price: 4200, oldPrice: 4800, sizes: ["100ml"], stock: 10, inStock: true, isFeatured: true, isBestSeller: true, image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80", notes: { top: "Lemon Zest", heart: "Lavender", base: "Sandalwood" }, desc_en: "A noble woody fragrance expressing strength and elegance.", desc_ar: "رمز الأناقة الكلاسيكية بعبير خشب الصندل والأرز." }
-    ];
-
-    const CATEGORIES = [
-      { id: 'all', en: 'All Fragrances', ar: 'جميع العطور' },
-      { id: 'men', en: "Men's Perfumes", ar: 'عطور رجالية' },
-      { id: 'women', en: "Women's Perfumes", ar: 'عطور نسائية' },
-      { id: 'unisex', en: 'Unisex Fragrances', ar: 'عطور للجنسين' },
-      { id: 'oriental', en: 'Arabic & Oriental', ar: 'عطور شرقية وعود' },
-      { id: 'luxury', en: 'Luxury Collections', ar: 'المجموعات الفاخرة' },
-      { id: 'bestseller', en: 'Best Sellers', ar: 'الأكثر مبيعاً' },
-      { id: 'offers', en: 'Special Offers', ar: 'العروض الخاصة' }
-    ];
-
-    const I18N = {
-      en: {
-        brandTagline: "EXCLUSIVE PERFUME",
-        announcement: "✨ Exclusive Luxury Offer: Free Express Delivery Across Egypt on Orders Above 3,000 EGP",
-        navHome: "Home", navShop: "Shop Collection", navAbout: "Brand Story",
-        heroTitle: "Elegance Captured in Every Drop",
-        heroSubtitle: "Discover bespoke luxury fragrances crafted for the discerning connoisseur.",
-        heroCta: "Explore Collection", heroBestsellersBtn: "Best Sellers",
-        catTitle: "Fragrance Collections", catSub: "Explore signature scents tailored to every preference.",
-        featuredTitle: "Curated Masterpieces", featuredSub: "Handpicked selections representing our highest craftsmanship.",
-        seeAll: "View All", bestsellersTitle: "Most Desired Fragrances", bestsellersSub: "The signatures chosen by our most distinguished clientele.",
-        storyTitle: "The Essence of AMORE",
-        storyDesc: "At AMORE, perfume is not merely a scent — it is an indelible portrait of memory, status, and refined taste. Every bottle in our curation represents peak artistic creation.",
-        trustDelTitle: "Express Nationwide Shipping", trustDelDesc: "Safe, temperature-controlled delivery direct to your doorstep.",
-        trustAuthTitle: "100% Genuine Perfumes", trustAuthDesc: "Guaranteed authentic formulations sourced from top perfume houses.",
-        trustSupTitle: "Personal Concierge", trustSupDesc: "Instant consultation via WhatsApp for bespoke recommendations.",
-        shopTitle: "Fragrance Catalogue", searchPlaceholder: "Search perfumes, brands, or notes...",
-        filtersTitle: "Filter Catalogue", resetFilters: "Reset Filters", categoryLabel: "Categories",
-        priceLabel: "Price Limit:", sortLabel: "Sort By:", sortNewest: "Newest Arrivals",
-        sortLow: "Price: Low to High", sortHigh: "Price: High to Low", sortPopular: "Most Popular",
-        emptyMsg: "No fragrances match your selected filters.",
-        addToCart: "Add to Cart", quickWA: "Order via WhatsApp", outOfStock: "Out of Stock",
-        inStock: "In Stock", egp: "EGP",
-        cartTitle: "Shopping Bag", subtotal: "Subtotal:", checkoutBtn: "Proceed to WhatsApp Checkout",
-        checkoutTitle: "Complete Order via WhatsApp", checkoutNotice: "Clicking confirmation opens WhatsApp with pre-filled order details. Press Send inside WhatsApp to complete.",
-        lblCustName: "Full Name *", lblCustPhone: "Phone / WhatsApp Number *", lblCustAddress: "Delivery Address & City *",
-        lblCustNotes: "Order Notes / Special Instructions", checkoutSend: "Send Order on WhatsApp",
-        footerDesc: "The premier destination for luxury scents. Crafting distinctive olfactory experiences.",
-        footerLinks: "Navigation", footerContact: "Contact Us", footerHours: "WhatsApp Concierge",
-        footerHoursDesc: "Available 24/7 on WhatsApp for direct consultations and order confirmation.",
-        footerRights: "All rights reserved.", quickWAFloat: "WhatsApp Us", footerAbout: "Brand Story",
-        footerAdmin: "Admin"
-      },
-      ar: {
-        brandTagline: "عطور حصرية",
-        announcement: "✨ عرض فاخر حصري: توصيل سريع مجاني لجميع محافظات مصر للطلبات أعلى من 3000 جنيه",
-        navHome: "الرئيسية", navShop: "المتجر والتشكيلة", navAbout: "قصة AMORE",
-        heroTitle: "الفخامة والجمال في كل قطرة",
-        heroSubtitle: "اكتشف تشكيلة العطور الحصرية المصممة بعناية لأصحاب الذوق الرفيع.",
-        heroCta: "استكشف التشكيلة", heroBestsellersBtn: "الأكثر مبيعاً",
-        catTitle: "أقسام العطور الفاخرة", catSub: "تصفح عطورك المفضلة حسب الأقسام والمكونات العطرية الفريدة.",
-        featuredTitle: "مجموعة التحف العطرية", featuredSub: "عطور مختارة بعناية تعبر عن أقصى درجات الفخامة.",
-        seeAll: "عرض الكل", bestsellersTitle: "العطور الأكثر طلباً", bestsellersSub: "العطور الأيقونية المفضلة لدى عملائنا المتميزين.",
-        storyTitle: "جوهر AMORE Exclusive",
-        storyDesc: "في AMORE، لا نعتبر العطر مجرد عبق عابر، بل هو بصمة شخصية تعبر عن الذوق والرفاهية. نختار عطورنا بعناية لتناسب الشخصيات الاستثنائية.",
-        trustDelTitle: "توصيل سريع لكافة المحافظات", trustDelDesc: "شحن آمن ومحمي لضمان وصول عطرك بحالة ممتازة.",
-        trustAuthTitle: "عطور أصلية 100%", trustAuthDesc: "نضمن أصالة جميع المنتجات والتركيبات العطرية.",
-        trustSupTitle: "استشارات عطرية خاصة", trustSupDesc: "خدمة عملاء مباشرة عبر الواتساب لمساعدتك في اختيار عطرك.",
-        shopTitle: "متجر العطور الحصرية", searchPlaceholder: "ابحث عن عطر، ماركة، أو مكونات...",
-        filtersTitle: "الفلاتر والتصفية", resetFilters: "إعادة ضبط الفلاتر", categoryLabel: "الأقسام",
-        priceLabel: "السعر الأقصى:", sortLabel: "ترتيب حسب:", sortNewest: "الأحدث وصولاً",
-        sortLow: "السعر: من الأقل للأعلى", sortHigh: "السعر: من الأعلى للأقل", sortPopular: "الأكثر شعبية",
-        emptyMsg: "لم يتم العثور على عطور تطابق الاختيارات الحالية.",
-        addToCart: "إضافة للحقيبة", quickWA: "طلب عبر الواتساب", outOfStock: "نفذت الكمية",
-        inStock: "متوفر بالمخزون", egp: "جنيه",
-        cartTitle: "حقيبة التسوق", subtotal: "الإجمالي الفرعي:", checkoutBtn: "متابعة الطلب عبر الواتساب",
-        checkoutTitle: "تأكيد الطلب عبر الواتساب", checkoutNotice: "عند الضغط على إرسال سيتم فتح الواتساب بتفاصيل الطلب. يرجى الضغط على 'إرسال' داخل الواتساب لإكمال طلبك.",
-        lblCustName: "الاسم بالكامل *", lblCustPhone: "رقم الهاتف / الواتساب *", lblCustAddress: "عنوان التوصيل والمدينة *",
-        lblCustNotes: "ملاحظات خاصة بالطلب", checkoutSend: "تأكيد وإرسال عبر الواتساب",
-        footerDesc: "العنوان الأول للعطور الفاخرة المتميزة. نقدم تركيبات عطريّة فريدة تليق بأصحاب الذوق العالي.",
-        footerLinks: "روابط سريعة", footerContact: "اتصل بنا", footerHours: "استشارات الواتساب",
-        footerHoursDesc: "متواجدون على مدار الساعة عبر الواتساب للإجابة عن استفساراتكم وتأكيد الطلبات.",
-        footerRights: "جميع الحقوق محفوظة.", quickWAFloat: "تواصل معنا", footerAbout: "قصة العلامة",
-        footerAdmin: "المشرف"
-      }
-    };
-
-    // ── GLOBAL APP STATE ─────────────────────────────────────────────
-    let state = {
-      lang: localStorage.getItem('amore_lang') || 'ar',
-      theme: localStorage.getItem('amore_theme') || 'dark',
-      view: 'home',
-      selectedProductId: null,
-      selectedCategory: 'all',
-      searchQuery: '',
-      maxPrice: 15000,
-      sortBy: 'newest',
-      cart: JSON.parse(localStorage.getItem('amore_cart')) || [],
-      products: [],
-      detailQty: 1,
-      detailSize: '100ml',
-      quickViewProduct: null,
-      firebaseLoaded: false
-    };
-
-    // ── INITIALIZATION ────────────────────────────────────────────────
-    window.addEventListener('firebase-ready', async () => {
-      applyTheme();
-      applyLanguage();
-
-      if (window.__amoreFirebaseReady && window.__amoreFirestore) {
-        await loadProductsFromFirebase();
-      } else {
-        // Use seed data as demo fallback
-        state.products = SEED_PRODUCTS;
-        document.getElementById('shop-loading').classList.add('hidden');
-        renderAll();
-      }
-      lucide.createIcons();
-    });
-
-    // Failsafe if Firebase module script fails entirely
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        if (state.products.length === 0 && !state.firebaseLoaded) {
-          state.products = SEED_PRODUCTS;
-          applyTheme();
-          applyLanguage();
-          document.getElementById('shop-loading').classList.add('hidden');
-          renderAll();
-          lucide.createIcons();
-        }
-      }, 3000);
-    });
-
-    // ── FIREBASE PRODUCT LOADER ───────────────────────────────────────
-    async function loadProductsFromFirebase() {
-      try {
-        const db = window.__amoreFirestore;
-        const { collection, getDocs, onSnapshot, query, orderBy } = window.__amoreFirestoreModules;
-
-        // Real-time listener for products (public read: available only)
-        const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
-        onSnapshot(q, (snapshot) => {
-          const products = [];
-          snapshot.forEach(doc => {
-            const d = doc.data();
-            // Only show products that are inStock and have stock > 0
-            if (d.inStock && d.stock > 0) {
-              products.push({ id: doc.id, ...d });
-            }
-          });
-
-          // If Firestore has no products yet, use seeds
-          state.products = products.length > 0 ? products : SEED_PRODUCTS;
-          state.firebaseLoaded = true;
-          document.getElementById('shop-loading').classList.add('hidden');
-          renderAll();
-          if (state.view === 'shop') renderShop();
-          lucide.createIcons();
-        }, (err) => {
-          console.warn('[AMORE] Firestore read error:', err.message);
-          state.products = SEED_PRODUCTS;
-          document.getElementById('shop-loading').classList.add('hidden');
-          renderAll();
-          lucide.createIcons();
-        });
-
-      } catch (err) {
-        console.warn('[AMORE] Firebase load failed:', err.message);
-        state.products = SEED_PRODUCTS;
-        document.getElementById('shop-loading').classList.add('hidden');
-        renderAll();
-        lucide.createIcons();
-      }
-    }
-
-    // ── THEME & LANGUAGE ──────────────────────────────────────────────
-    function toggleTheme() {
-      state.theme = state.theme === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('amore_theme', state.theme);
-      applyTheme();
-    }
-
-    function applyTheme() {
-      document.documentElement.classList.toggle('dark', state.theme === 'dark');
-      const icon = document.getElementById('theme-icon');
-      icon.setAttribute('data-lucide', state.theme === 'dark' ? 'sun' : 'moon');
-      lucide.createIcons();
-    }
-
-    function toggleLanguage() {
-      state.lang = state.lang === 'ar' ? 'en' : 'ar';
-      localStorage.setItem('amore_lang', state.lang);
-      applyLanguage();
-      renderAll();
-    }
-
-    function applyLanguage() {
-      const isAr = state.lang === 'ar';
-      document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-      document.documentElement.lang = state.lang;
-      document.getElementById('lang-btn-text').innerText = isAr ? 'EN' : 'العربية';
-
-      const t = I18N[state.lang];
-      const set = (id, txt) => { const el = document.getElementById(id); if (el) el.innerText = txt; };
-
-      set('announcement-text', t.announcement);
-      set('brand-tagline', t.brandTagline);
-      set('nav-home', t.navHome);
-      set('nav-shop', t.navShop);
-      set('nav-about', t.navAbout);
-      set('mob-home', t.navHome);
-      set('mob-shop', t.navShop);
-      set('mob-about', t.navAbout);
-      set('hero-title', t.heroTitle);
-      set('hero-subtitle', t.heroSubtitle);
-      set('hero-cta', t.heroCta);
-      set('hero-bestsellers-btn', t.heroBestsellersBtn);
-      set('cat-title', t.catTitle);
-      set('cat-sub', t.catSub);
-      set('featured-title', t.featuredTitle);
-      set('featured-sub', t.featuredSub);
-      set('see-all-btn', t.seeAll);
-      set('bestsellers-title', t.bestsellersTitle);
-      set('bestsellers-sub', t.bestsellersSub);
-      set('story-title', t.storyTitle);
-      set('story-desc', t.storyDesc);
-      set('trust-del-title', t.trustDelTitle);
-      set('trust-del-desc', t.trustDelDesc);
-      set('trust-auth-title', t.trustAuthTitle);
-      set('trust-auth-desc', t.trustAuthDesc);
-      set('trust-sup-title', t.trustSupTitle);
-      set('trust-sup-desc', t.trustSupDesc);
-      set('shop-title', t.shopTitle);
-      const si = document.getElementById('shop-search-input');
-      if (si) si.placeholder = t.searchPlaceholder;
-      set('filter-title', t.filtersTitle);
-      set('reset-filters-btn', t.resetFilters);
-      set('filter-cat-label', t.categoryLabel);
-      set('filter-price-label', t.priceLabel);
-      set('sort-label', t.sortLabel);
-      set('sort-newest', t.sortNewest);
-      set('sort-low', t.sortLow);
-      set('sort-high', t.sortHigh);
-      set('sort-popular', t.sortPopular);
-      set('empty-msg', t.emptyMsg);
-      set('empty-reset-btn', t.resetFilters);
-      set('cart-drawer-title', t.cartTitle);
-      set('cart-subtotal-label', t.subtotal);
-      set('cart-checkout-btn', t.checkoutBtn);
-      set('checkout-modal-title', t.checkoutTitle);
-      set('checkout-modal-notice', t.checkoutNotice);
-      set('lbl-cust-name', t.lblCustName);
-      set('lbl-cust-phone', t.lblCustPhone);
-      set('lbl-cust-address', t.lblCustAddress);
-      set('lbl-cust-notes', t.lblCustNotes);
-      set('checkout-send-btn', t.checkoutSend);
-      set('footer-desc', t.footerDesc);
-      set('footer-gold-links', t.footerLinks);
-      set('foot-nav-home', t.navHome);
-      set('foot-nav-shop', t.navShop);
-      set('foot-nav-about', t.footerAbout);
-      set('footer-gold-contact', t.footerContact);
-      set('footer-gold-hours', t.footerHours);
-      set('footer-hours-desc', t.footerHoursDesc);
-      set('footer-rights', t.footerRights);
-      set('floating-wa-text', t.quickWAFloat);
-      set('footer-admin-link', t.footerAdmin);
-    }
-
-    // ── VIEW SWITCHER ─────────────────────────────────────────────────
-    function switchView(viewName, productId = null) {
-      state.view = viewName;
-      if (productId) state.selectedProductId = productId;
-      document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
-      const viewMap = { product: 'product-detail' };
-      document.getElementById(`view-${viewMap[viewName] || viewName}`).classList.remove('hidden');
-      window.scrollTo(0, 0);
-      if (viewName === 'shop') renderShop();
-      if (viewName === 'product') renderProductDetail();
-    }
-
-    function scrollToStory() {
-      if (state.view !== 'home') { switchView('home'); }
-      setTimeout(() => {
-        document.getElementById('story-section').scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
-
-    // ── TOAST ─────────────────────────────────────────────────────────
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      document.getElementById('toast-message').innerText = msg;
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3500);
-    }
-
-    // ── RENDER ALL ────────────────────────────────────────────────────
-    function renderAll() {
-      renderCategoriesGrid();
-      renderFeatured();
-      renderBestsellers();
-      updateCartBadge();
-    }
-
-    function renderCategoriesGrid() {
-      const grid = document.getElementById('home-categories-grid');
-      grid.innerHTML = CATEGORIES.slice(1).map(cat => `
-        <div onclick="selectCategoryFilter('${cat.id}')" class="group cursor-pointer p-6 rounded-3xl bg-[#00383D]/40 dark:bg-[#002024]/60 border border-[#D4AF37]/20 hover:border-[#D4AF37] transition-all text-center hover:scale-[1.02] shadow-lg flex flex-col items-center justify-center space-y-3">
-          <div class="p-3 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-[#002B30] transition-colors">
-            <i data-lucide="sparkles" class="w-6 h-6"></i>
-          </div>
-          <h3 class="font-serif font-bold text-sm text-[#FAF8F5] group-hover:text-[#D4AF37]">${cat[state.lang]}</h3>
+<!-- ═══════════════════════════════════════ QUICK VIEW MODAL -->
+<div id="quickview-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+  <div class="relative w-full max-w-2xl bg-[#161616] border border-[#D8CBB5]/15 rounded-2xl p-6 shadow-2xl text-[#F7F5F0]">
+    <button onclick="closeQuickView()" class="absolute top-4 right-4 rtl:left-4 rtl:right-auto text-[#89847C] hover:text-[#F7F5F0] transition-colors">
+      <i data-lucide="x" class="w-5 h-5"></i>
+    </button>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+      <div class="aspect-square rounded-xl overflow-hidden bg-[#111111]">
+        <img id="qv-image" src="" alt="" class="w-full h-full object-cover">
+      </div>
+      <div class="space-y-4">
+        <span id="qv-brand" class="text-[#C6A66B] text-[10px] uppercase tracking-[.2em] font-bold"></span>
+        <h2 id="qv-name" class="font-serif text-2xl font-bold text-[#F7F5F0]"></h2>
+        <div id="qv-price" class="font-serif text-2xl font-bold text-[#C6A66B]"></div>
+        <p id="qv-desc" class="text-[#89847C] text-xs font-light leading-relaxed line-clamp-3"></p>
+        <div class="space-y-2.5 pt-2">
+          <button onclick="addQuickViewToCart()" id="qv-add-cart-btn" class="w-full btn-gold py-3 rounded-xl text-xs"></button>
+          <button onclick="quickOrderQVWA()" class="w-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold py-3 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>WhatsApp Order</span>
+          </button>
         </div>
-      `).join('');
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ FIREBASE SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+  import { getFirestore, collection, onSnapshot, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+  const firebaseConfig = {
+    apiKey: "AIzaSyBxAkelLg6Nx94t507M2Mf3E0NuCl2rLlc",
+    authDomain: "amore-perfume.firebaseapp.com",
+    projectId: "amore-perfume",
+    storageBucket: "amore-perfume.firebasestorage.app",
+    messagingSenderId: "340827519847",
+    appId: "1:340827519847:web:46badf3cae11236c4acdc2",
+    measurementId: "G-ZTMTQGJ80Z"
+  };
+  let db = null, firebaseReady = false;
+  try {
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    firebaseReady = true;
+  } catch(e) { console.warn('[AMORE] Firebase init failed:', e.message); }
+  window.__amoreFirestore = db;
+  window.__amoreFirebaseReady = firebaseReady;
+  window.__amoreFirestoreModules = { collection, onSnapshot, query, orderBy };
+  window.dispatchEvent(new CustomEvent('firebase-ready'));
+</script>
+
+<!-- ══════════════════════════════════════ APP LOGIC -->
+<script>
+const WHATSAPP_NUMBER = "201149770420";
+
+// ── SEED DATA ──
+const SEED_PRODUCTS = [
+  { id:"seed_1", name_en:"Dior Sauvage Eau de Parfum", name_ar:"ديور سوفاج أو دي بارفان", brand:"Dior", category:"men", categoryIds:["men","bestseller"], price:3200, oldPrice:3800, sizes:["50ml","100ml"], stock:15, inStock:true, isFeatured:true, isBestSeller:true, image:"https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80", notes:{top:"Bergamot",heart:"Sichuan Pepper",base:"Ambroxan"}, desc_en:"A radically fresh composition dictated by a signature ring of manifesto.", desc_ar:"تركيبة فائقة الانتعاش تعبر عن الرجولة الحديثة والجاذبية." },
+  { id:"seed_2", name_en:"Paco Rabanne One Million", name_ar:"باكو رابان وان ميليون", brand:"Paco Rabanne", category:"men", categoryIds:["men","bestseller"], price:2450, oldPrice:2900, sizes:["100ml"], stock:20, inStock:true, isFeatured:true, isBestSeller:true, image:"https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80", notes:{top:"Blood Mandarin",heart:"Cinnamon",base:"Leather"}, desc_en:"High shine gold signature blend of spicy leather and amber.", desc_ar:"عطر النجاح والجاذبية بنفحات الجلود التابلية والعنبر." },
+  { id:"seed_3", name_en:"Louis Vuitton Imagination", name_ar:"لوي فيتون إيماجيناسيون", brand:"Louis Vuitton", category:"luxury", categoryIds:["men","luxury","unisex"], price:7800, oldPrice:null, sizes:["100ml"], stock:5, inStock:true, isFeatured:true, isBestSeller:false, image:"https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80", notes:{top:"Citron",heart:"Ginger",base:"Black Tea"}, desc_en:"An ethereal key to freedom driven by black tea and luminous citrus.", desc_ar:"مفتاح خيالي للحرية بعبير الشاي الأسود والحمضيات النضرة." },
+  { id:"seed_4", name_en:"Xerjoff Erba Pura", name_ar:"زيرجوف إيربا بورا", brand:"Xerjoff", category:"unisex", categoryIds:["unisex","luxury","bestseller"], price:6100, oldPrice:6800, sizes:["100ml"], stock:8, inStock:true, isFeatured:true, isBestSeller:true, image:"https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes:{top:"Sicilian Orange",heart:"Fruits",base:"White Musk"}, desc_en:"Delicious modern blend of Mediterranean citrus and sweet fruits.", desc_ar:"مزيج فاخر من الحمضيات الصقلية والفواكه مع المسك والعنبر." },
+  { id:"seed_5", name_en:"Lattafa Khamrah", name_ar:"لطافة خمرة", brand:"Lattafa", category:"oriental", categoryIds:["oriental","unisex","bestseller"], price:1450, oldPrice:1700, sizes:["100ml"], stock:25, inStock:true, isFeatured:true, isBestSeller:true, image:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80", notes:{top:"Cinnamon",heart:"Dates",base:"Vanilla"}, desc_en:"Warm gourmand sweet oriental fragrance with rich cinnamon and vanilla.", desc_ar:"عطر شرقي دافئ بنفحات القرفة والتمر والڤانيلا الفاخرة." },
+  { id:"seed_6", name_en:"Lattafa Khamrah Qahwa", name_ar:"لطافة خمرة قهوة", brand:"Lattafa", category:"oriental", categoryIds:["oriental","unisex","offers"], price:1600, oldPrice:1950, sizes:["100ml"], stock:12, inStock:true, isFeatured:false, isBestSeller:false, image:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80", notes:{top:"Cardamom",heart:"Coffee",base:"Vanilla"}, desc_en:"Enhanced edition with rich Arabic roasted coffee notes.", desc_ar:"إصدار مُطور ممزوج بأرقى لمسات القهوة العربية المحمصة." },
+  { id:"seed_7", name_en:"Paco Rabanne Invictus", name_ar:"باكو رابان إنفيكتوس", brand:"Paco Rabanne", category:"men", categoryIds:["men"], price:2300, oldPrice:2700, sizes:["100ml"], stock:14, inStock:true, isFeatured:false, isBestSeller:false, image:"https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80", notes:{top:"Sea Notes",heart:"Jasmine",base:"Guaiac Wood"}, desc_en:"Fresh woody notes inspired by athletic glory and invincible energy.", desc_ar:"عطر النصر والقوة بعبير البحار والأخشاب العطرية." },
+  { id:"seed_8", name_en:"Carolina Herrera Good Girl", name_ar:"كارولينا هيريرا جود جيرل", brand:"Carolina Herrera", category:"women", categoryIds:["women","bestseller"], price:3100, oldPrice:3600, sizes:["80ml"], stock:18, inStock:true, isFeatured:true, isBestSeller:true, image:"https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes:{top:"Almond",heart:"Tuberose",base:"Cacao"}, desc_en:"Seductive blend of dark cacao and luminous white florals.", desc_ar:"مزيج جذاب يجمع بين الياسمين والكاكاو والڤانيلا." },
+  { id:"seed_9", name_en:"Lullaby Pink", name_ar:"لوللابي بينك", brand:"Fragrance World", category:"women", categoryIds:["women","offers"], price:1200, oldPrice:1500, sizes:["100ml"], stock:20, inStock:true, isFeatured:false, isBestSeller:false, image:"https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes:{top:"Peach",heart:"Rose",base:"Musk"}, desc_en:"A soft feminine floral with peach and rose.", desc_ar:"عطر نسائي ناعم بنفحات الخوخ والورود." },
+  { id:"seed_10", name_en:"Jean Paul Gaultier Scandal", name_ar:"جان بول غوتيه إسكاندال", brand:"JPG", category:"women", categoryIds:["women","offers"], price:2900, oldPrice:3400, sizes:["80ml"], stock:9, inStock:true, isFeatured:false, isBestSeller:false, image:"https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes:{top:"Blood Orange",heart:"Honey",base:"Patchouli"}, desc_en:"An elegant aura dirtied by the spirit of Paris night life.", desc_ar:"عبير أنثوي جذاب بنفحات العسل والبرتقال والباتشولي." },
+  { id:"seed_11", name_en:"Sugary", name_ar:"سوجاري", brand:"Lattafa", category:"women", categoryIds:["women","offers"], price:1100, oldPrice:1400, sizes:["100ml"], stock:30, inStock:true, isFeatured:false, isBestSeller:false, image:"https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80", notes:{top:"Berry",heart:"Sugar",base:"Vanilla"}, desc_en:"Sweet gourmand fragrance with berry and vanilla notes.", desc_ar:"عطر حلو بنفحات التوت والسكر والڤانيلا." },
+  { id:"seed_12", name_en:"Maison Francis Kurkdjian Baccarat Rouge 540", name_ar:"باكارات روج 540", brand:"MFK", category:"unisex", categoryIds:["unisex","luxury","bestseller"], price:9500, oldPrice:11000, sizes:["70ml"], stock:4, inStock:true, isFeatured:true, isBestSeller:true, image:"https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80", notes:{top:"Saffron",heart:"Amberwood",base:"Cedar"}, desc_en:"Luminous poetic alchemy with amber floral woody breeze.", desc_ar:"أيقونة العطور الفاخرة تمزج الزعفران مع العنبر الكريستالي." },
+  { id:"seed_13", name_en:"Tom Ford Oud Wood", name_ar:"توم فورد أود وود", brand:"Tom Ford", category:"unisex", categoryIds:["unisex","luxury","oriental"], price:7200, oldPrice:8100, sizes:["100ml"], stock:7, inStock:true, isFeatured:true, isBestSeller:false, image:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80", notes:{top:"Rare Oud",heart:"Cardamom",base:"Sandalwood"}, desc_en:"One of the rarest, most precious ingredients in perfumery.", desc_ar:"تجربة عطرية ملكية مستوحاة من أندر خشب العود والهيل." },
+  { id:"seed_14", name_en:"Versace Eros Eau de Parfum", name_ar:"فرزاتشي إيروس أو دي بارفان", brand:"Versace", category:"men", categoryIds:["men","bestseller"], price:2600, oldPrice:3100, sizes:["100ml"], stock:16, inStock:true, isFeatured:true, isBestSeller:true, image:"https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=800&q=80", notes:{top:"Mint, Apple",heart:"Tonka Bean",base:"Vanilla"}, desc_en:"A scent that interprets sublime masculinity through a luminous aura.", desc_ar:"عطر الجاذبية الإغريقية بنفحات النعناع والڤانيلا." },
+  { id:"seed_15", name_en:"Chanel Bleu de Chanel Parfum", name_ar:"شانيل بلو دي شانيل بارفان", brand:"Chanel", category:"men", categoryIds:["men","luxury","bestseller"], price:4200, oldPrice:4800, sizes:["100ml"], stock:10, inStock:true, isFeatured:true, isBestSeller:true, image:"https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80", notes:{top:"Lemon Zest",heart:"Lavender",base:"Sandalwood"}, desc_en:"A noble woody fragrance expressing strength and elegance.", desc_ar:"رمز الأناقة الكلاسيكية بعبير خشب الصندل والأرز." }
+];
+
+const CATEGORIES = [
+  {id:'all',   en:'All Fragrances',    ar:'جميع العطور'},
+  {id:'men',   en:"Men's",             ar:'رجالية'},
+  {id:'women', en:"Women's",           ar:'نسائية'},
+  {id:'unisex',en:'Unisex',            ar:'للجنسين'},
+  {id:'oriental',en:'Oriental & Oud',  ar:'شرقية وعود'},
+  {id:'luxury',en:'Luxury',            ar:'فاخرة'},
+  {id:'bestseller',en:'Best Sellers',  ar:'الأكثر مبيعاً'},
+  {id:'offers',en:'Special Offers',    ar:'العروض'}
+];
+
+const CAT_ICONS = { all:'layers', men:'user', women:'flower', unisex:'users', oriental:'flame', luxury:'gem', bestseller:'star', offers:'tag' };
+
+const I18N = {
+  en: {
+    announcement:"✦ Free Express Delivery on Orders Above 3,000 EGP — Egypt Wide",
+    navHome:"Home", navShop:"Shop", navMen:"Men", navWomen:"Women", navUnisex:"Unisex", navOffers:"Offers", navContact:"Contact",
+    heroTitle:"Discover Your\nSignature Scent",
+    heroSubtitle:"Luxury fragrances for every mood, every moment.",
+    heroCta:"Explore Collection", heroBestsellersBtn:"Shop Best Sellers",
+    catTitle:"Shop by Collection", catSub:"Explore signature scents tailored to every mood and preference.",
+    featuredTitle:"Curated Masterpieces", featuredSub:"Our finest handpicked selections.",
+    seeAll:"View All →",
+    bestsellersTitle:"Most Desired", bestsellersSub:"The signatures chosen by our most distinguished clientele.",
+    whyTitle:"The AMORE Promise",
+    storyTitle:"The Essence of AMORE",
+    storyDesc:"At AMORE, perfume is not merely a scent — it is an indelible portrait of memory, status, and refined taste. Every bottle in our curation represents peak artistic creation.",
+    faqTitle:"Frequently Asked Questions",
+    contactTitle:"We're Here For You", contactSub:"Reach us directly on WhatsApp for orders, recommendations, and support.",
+    contactWABtn:"Start a Conversation",
+    trustDelTitle:"Express Nationwide Delivery", trustDelDesc:"Safe, temperature-controlled shipping to your doorstep across all of Egypt.",
+    trustAuthTitle:"100% Authentic", trustAuthDesc:"Every fragrance is guaranteed genuine, sourced directly from top perfume houses.",
+    trustSupTitle:"Personal Concierge", trustSupDesc:"Expert fragrance consultation available 24/7 via WhatsApp.",
+    shopTitle:"Fragrance Catalogue", searchPlaceholder:"Search perfumes, brands, or notes…",
+    filtersTitle:"Filters", resetFilters:"Clear", categoryLabel:"Category",
+    priceLabel:"Max Price:", sortLabel:"Sort:", sortNewest:"Newest", sortLow:"Price ↑", sortHigh:"Price ↓", sortPopular:"Popular",
+    emptyMsg:"No fragrances match your filters.",
+    addToCart:"Add to Bag", quickWA:"Order via WhatsApp", outOfStock:"Out of Stock", inStock:"In Stock", egp:"EGP",
+    cartTitle:"Shopping Bag", subtotal:"Subtotal:", checkoutBtn:"Checkout via WhatsApp",
+    checkoutTitle:"Complete Your Order", checkoutNotice:"WhatsApp will open with your order details pre-filled. Press Send to confirm.",
+    lblCustName:"Full Name *", lblCustPhone:"Phone / WhatsApp *", lblCustAddress:"Delivery Address & City *",
+    lblCustNotes:"Special Instructions", checkoutSend:"Send Order on WhatsApp",
+    footerDesc:"The premier destination for luxury fragrances in Egypt.",
+    footerLinks:"Quick Links", footerContact:"Contact", footerHours:"Order Hours",
+    footerHoursDesc:"Available 24/7 on WhatsApp. We typically respond within minutes.",
+    footerWaText:"Order Now", footerRights:"All rights reserved.",
+    footerAbout:"Our Story", footerOffers:"Special Offers", footerAdmin:"Admin",
+    quickWAFloat:"Chat with Us",
+    faq: [
+      {q:"How do I place an order?", a:"Browse our catalogue, click 'Order via WhatsApp' on any product, and we'll confirm your order instantly."},
+      {q:"Do you deliver across Egypt?", a:"Yes — we deliver to all governorates across Egypt with express shipping options."},
+      {q:"Are all fragrances authentic?", a:"Absolutely. Every fragrance is 100% authentic, sourced from authorised distributors."},
+      {q:"What is your return policy?", a:"We accept returns within 3 days if the product is unopened and in original condition."}
+    ]
+  },
+  ar: {
+    announcement:"✦ توصيل سريع مجاني لطلبات أعلى من 3000 جنيه — لجميع محافظات مصر",
+    navHome:"الرئيسية", navShop:"المتجر", navMen:"رجالي", navWomen:"نسائي", navUnisex:"للجنسين", navOffers:"العروض", navContact:"تواصل معنا",
+    heroTitle:"اكتشف عطرك\nالمميز",
+    heroSubtitle:"عطور فاخرة لكل مزاج ولكل لحظة.",
+    heroCta:"استكشف التشكيلة", heroBestsellersBtn:"الأكثر مبيعاً",
+    catTitle:"تسوق حسب التشكيلة", catSub:"تصفح عطورنا المختارة بعناية لكل ذوق ومناسبة.",
+    featuredTitle:"تحف عطرية مختارة", featuredSub:"أفخر تشكيلاتنا المنتقاة بعناية.",
+    seeAll:"عرض الكل ←",
+    bestsellersTitle:"الأكثر طلباً", bestsellersSub:"العطور الأيقونية المفضلة لدى عملائنا المتميزين.",
+    whyTitle:"وعد AMORE",
+    storyTitle:"جوهر AMORE",
+    storyDesc:"في AMORE، لا نعتبر العطر مجرد عبق عابر، بل هو بصمة شخصية تعبر عن الذوق والرفاهية. نختار عطورنا بعناية لتناسب الشخصيات الاستثنائية.",
+    faqTitle:"الأسئلة الشائعة",
+    contactTitle:"نحن هنا من أجلك", contactSub:"تواصل معنا مباشرة على الواتساب للطلبات والاستفسارات والتوصيات.",
+    contactWABtn:"ابدأ المحادثة",
+    trustDelTitle:"توصيل سريع لكافة المحافظات", trustDelDesc:"شحن آمن ومحمي لضمان وصول عطرك بحالة ممتازة لباب منزلك.",
+    trustAuthTitle:"أصلي 100%", trustAuthDesc:"جميع عطورنا أصلية ومضمونة، من أفضل المصادر العالمية.",
+    trustSupTitle:"استشارات عطرية خاصة", trustSupDesc:"خبراؤنا متاحون 24/7 عبر الواتساب لمساعدتك في اختيار عطرك.",
+    shopTitle:"متجر العطور الحصرية", searchPlaceholder:"ابحث عن عطر أو ماركة أو مكونات…",
+    filtersTitle:"الفلاتر", resetFilters:"مسح", categoryLabel:"القسم",
+    priceLabel:"السعر الأقصى:", sortLabel:"ترتيب:", sortNewest:"الأحدث", sortLow:"السعر ↑", sortHigh:"السعر ↓", sortPopular:"الأشهر",
+    emptyMsg:"لا توجد عطور تطابق اختياراتك.",
+    addToCart:"إضافة للحقيبة", quickWA:"طلب واتساب", outOfStock:"نفذت الكمية", inStock:"متوفر", egp:"جنيه",
+    cartTitle:"حقيبة التسوق", subtotal:"الإجمالي:", checkoutBtn:"إتمام الطلب عبر الواتساب",
+    checkoutTitle:"تأكيد طلبك", checkoutNotice:"سيتم فتح الواتساب بتفاصيل طلبك. اضغط إرسال لتأكيد طلبك.",
+    lblCustName:"الاسم الكامل *", lblCustPhone:"رقم الهاتف / الواتساب *", lblCustAddress:"عنوان التوصيل والمحافظة *",
+    lblCustNotes:"ملاحظات خاصة", checkoutSend:"إرسال الطلب عبر الواتساب",
+    footerDesc:"الوجهة الأولى للعطور الفاخرة الأصيلة في مصر.",
+    footerLinks:"روابط سريعة", footerContact:"تواصل معنا", footerHours:"ساعات الطلبات",
+    footerHoursDesc:"متواجدون 24/7 على الواتساب. نرد في دقائق.",
+    footerWaText:"اطلب الآن", footerRights:"جميع الحقوق محفوظة.",
+    footerAbout:"قصتنا", footerOffers:"العروض الخاصة", footerAdmin:"المشرف",
+    quickWAFloat:"تواصل معنا",
+    faq: [
+      {q:"كيف أطلب؟", a:"تصفح المنتجات، اضغط 'طلب واتساب' على أي عطر، وسنؤكد طلبك فوراً."},
+      {q:"هل تتوفر التوصيل لجميع المحافظات؟", a:"نعم — نوصل لجميع محافظات مصر بخدمة شحن سريع."},
+      {q:"هل العطور أصلية؟", a:"بالتأكيد. جميع عطورنا أصلية 100% من أفضل الموردين المعتمدين."},
+      {q:"ما سياسة الإرجاع؟", a:"نقبل الإرجاع خلال 3 أيام إذا كان المنتج غير مفتوح وبحالته الأصلية."}
+    ]
+  }
+};
+
+// ── STATE ──
+let state = {
+  lang: localStorage.getItem('amore_lang') || 'ar',
+  view: 'home',
+  selectedProductId: null,
+  selectedCategory: 'all',
+  searchQuery: '',
+  maxPrice: 15000,
+  sortBy: 'newest',
+  cart: JSON.parse(localStorage.getItem('amore_cart')) || [],
+  products: [],
+  detailQty: 1,
+  detailSize: '100ml',
+  quickViewProduct: null,
+  firebaseLoaded: false,
+  mobileMenuOpen: false,
+  searchOpen: false
+};
+
+// ── INIT ──
+window.addEventListener('firebase-ready', async () => {
+  applyLanguage();
+  if (window.__amoreFirebaseReady && window.__amoreFirestore) {
+    loadProductsFromFirebase();
+  } else {
+    state.products = SEED_PRODUCTS;
+    document.getElementById('shop-loading').classList.add('hidden');
+    renderAll();
+  }
+  lucide.createIcons();
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    if (state.products.length === 0 && !state.firebaseLoaded) {
+      state.products = SEED_PRODUCTS;
+      applyLanguage();
+      document.getElementById('shop-loading').classList.add('hidden');
+      renderAll();
       lucide.createIcons();
     }
+  }, 3000);
+});
 
-    function selectCategoryFilter(catId) {
-      state.selectedCategory = catId;
-      switchView('shop');
-    }
+// ── FIREBASE ──
+function loadProductsFromFirebase() {
+  const db = window.__amoreFirestore;
+  const { collection, onSnapshot, query, orderBy } = window.__amoreFirestoreModules;
+  const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
+  onSnapshot(q, snap => {
+    const products = [];
+    snap.forEach(doc => { const d = doc.data(); if (d.inStock && d.stock > 0) products.push({id:doc.id,...d}); });
+    state.products = products.length > 0 ? products : SEED_PRODUCTS;
+    state.firebaseLoaded = true;
+    document.getElementById('shop-loading').classList.add('hidden');
+    renderAll();
+    if (state.view === 'shop') renderShop();
+    lucide.createIcons();
+  }, err => {
+    state.products = SEED_PRODUCTS;
+    document.getElementById('shop-loading').classList.add('hidden');
+    renderAll();
+    lucide.createIcons();
+  });
+}
 
-    function renderFeatured() {
-      const grid = document.getElementById('featured-products-grid');
-      const featured = state.products.filter(p => p.isFeatured && p.inStock && p.stock > 0).slice(0, 4);
-      grid.innerHTML = featured.map(p => createProductCardHTML(p)).join('');
-      lucide.createIcons();
-    }
+// ── LANGUAGE ──
+function toggleLanguage() {
+  state.lang = state.lang === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('amore_lang', state.lang);
+  applyLanguage();
+  renderAll();
+  if (state.view === 'shop') renderShop();
+}
 
-    function renderBestsellers() {
-      const grid = document.getElementById('bestsellers-products-grid');
-      const best = state.products.filter(p => p.isBestSeller && p.inStock && p.stock > 0).slice(0, 4);
-      grid.innerHTML = best.map(p => createProductCardHTML(p)).join('');
-      lucide.createIcons();
-    }
+function applyLanguage() {
+  const isAr = state.lang === 'ar';
+  document.documentElement.dir  = isAr ? 'rtl' : 'ltr';
+  document.documentElement.lang = state.lang;
+  const t = I18N[state.lang];
+  const s = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = v; };
 
-    // ── PRODUCT CARD ──────────────────────────────────────────────────
-    function createProductCardHTML(p) {
-      const t = I18N[state.lang];
-      const name = state.lang === 'ar' ? p.name_ar : p.name_en;
-      const desc = state.lang === 'ar' ? p.desc_ar : p.desc_en;
-      const available = p.inStock && p.stock > 0;
+  document.getElementById('lang-btn-text').innerText = isAr ? 'EN' : 'عربي';
+  const mob = document.getElementById('mob-lang'); if(mob) mob.innerText = isAr?'EN':'عربي';
 
-      return `
-        <div class="group rounded-3xl bg-[#00383D]/40 border border-[#D4AF37]/20 hover:border-[#D4AF37] transition-all duration-300 shadow-lg hover:shadow-2xl overflow-hidden flex flex-col justify-between">
-          <div class="relative aspect-square overflow-hidden bg-[#002024]">
-            <img src="${p.image || 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80'}" alt="${name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
-            <div class="absolute top-3 left-3 rtl:right-3 rtl:left-auto flex flex-col gap-1.5 z-10">
-              ${p.oldPrice ? `<span class="bg-red-600 text-white text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">SALE</span>` : ''}
-              ${p.isBestSeller ? `<span class="bg-[#D4AF37] text-[#002B30] text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">★ BEST</span>` : ''}
-            </div>
-            <button onclick="openQuickView('${p.id}')" class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-[#002B30]/90 backdrop-blur-sm text-[#D4AF37] border border-[#D4AF37]/40 text-xs px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold shadow-lg hover:bg-[#D4AF37] hover:text-[#002B30]">
-              Quick View
+  s('announcement-text', t.announcement);
+  s('nav-home', t.navHome); s('nav-shop', t.navShop); s('nav-men', t.navMen);
+  s('nav-women', t.navWomen); s('nav-unisex', t.navUnisex); s('nav-offers', t.navOffers); s('nav-contact', t.navContact);
+  s('mob-home', t.navHome); s('mob-shop', t.navShop); s('mob-men', t.navMen);
+  s('mob-women', t.navWomen); s('mob-unisex', t.navUnisex); s('mob-offers', t.navOffers); s('mob-contact', t.navContact);
+  s('hero-title', t.heroTitle); s('hero-subtitle', t.heroSubtitle); s('hero-cta', t.heroCta); s('hero-bestsellers-btn', t.heroBestsellersBtn);
+  s('cat-title', t.catTitle); s('cat-sub', t.catSub);
+  s('featured-title', t.featuredTitle); s('featured-sub', t.featuredSub); s('see-all-btn', t.seeAll);
+  s('bestsellers-title', t.bestsellersTitle); s('bestsellers-sub', t.bestsellersSub);
+  s('whyTitle', t.whyTitle); s('story-title', t.storyTitle); s('story-desc', t.storyDesc);
+  s('trust-del-title', t.trustDelTitle); s('trust-del-desc', t.trustDelDesc);
+  s('trust-auth-title', t.trustAuthTitle); s('trust-auth-desc', t.trustAuthDesc);
+  s('trust-sup-title', t.trustSupTitle); s('trust-sup-desc', t.trustSupDesc);
+  s('faqTitle', t.faqTitle); s('contactTitle', t.contactTitle); s('contactSub', t.contactSub); s('contactWABtn', t.contactWABtn);
+  s('shop-title', t.shopTitle);
+  const si = document.getElementById('shop-search-input'); if(si) si.placeholder = t.searchPlaceholder;
+  const hi = document.getElementById('header-search-input'); if(hi) hi.placeholder = t.searchPlaceholder;
+  s('filter-title', t.filtersTitle); s('reset-filters-btn', t.resetFilters); s('filter-cat-label', t.categoryLabel);
+  s('filter-price-label', t.priceLabel); s('sort-label', t.sortLabel);
+  s('sort-newest', t.sortNewest); s('sort-low', t.sortLow); s('sort-high', t.sortHigh); s('sort-popular', t.sortPopular);
+  s('empty-msg', t.emptyMsg); s('empty-reset-btn', t.resetFilters);
+  s('cart-drawer-title', t.cartTitle); s('cart-subtotal-label', t.subtotal); s('cart-checkout-btn', t.checkoutBtn);
+  s('checkout-modal-title', t.checkoutTitle); s('checkout-modal-notice', t.checkoutNotice);
+  s('lbl-cust-name', t.lblCustName); s('lbl-cust-phone', t.lblCustPhone);
+  s('lbl-cust-address', t.lblCustAddress); s('lbl-cust-notes', t.lblCustNotes); s('checkout-send-btn', t.checkoutSend);
+  s('footer-desc', t.footerDesc); s('footer-gold-links', t.footerLinks);
+  s('foot-nav-home', t.navHome); s('foot-nav-shop', t.navShop); s('foot-nav-about', t.footerAbout); s('foot-nav-offers', t.footerOffers);
+  s('footer-gold-contact', t.footerContact); s('footer-gold-hours', t.footerHours); s('footer-hours-desc', t.footerHoursDesc);
+  s('footer-wa-text', t.footerWaText); s('footer-rights', t.footerRights);
+  s('footer-admin-link', t.footerAdmin); s('floating-wa-text', t.quickWAFloat);
+
+  // FAQ
+  const faqEl = document.getElementById('faq-container');
+  if (faqEl) {
+    faqEl.innerHTML = t.faq.map((f, i) => `
+      <div class="border border-[#D8CBB5]/20 rounded-xl overflow-hidden">
+        <button onclick="toggleFaq(${i})" class="w-full text-start px-6 py-4 flex items-center justify-between gap-4 hover:bg-[#C6A66B]/5 transition-colors">
+          <span class="font-medium text-[#1C1C1C] text-sm">${f.q}</span>
+          <i data-lucide="chevron-down" class="w-4 h-4 text-[#C6A66B] flex-shrink-0 faq-icon-${i} transition-transform duration-300"></i>
+        </button>
+        <div id="faq-ans-${i}" class="hidden px-6 pb-5">
+          <p class="text-[#89847C] text-sm leading-relaxed">${f.a}</p>
+        </div>
+      </div>
+    `).join('');
+    lucide.createIcons();
+  }
+}
+
+function toggleFaq(i) {
+  const ans = document.getElementById(`faq-ans-${i}`);
+  const icon = document.querySelector(`.faq-icon-${i}`);
+  const open = !ans.classList.contains('hidden');
+  ans.classList.toggle('hidden', open);
+  if (icon) icon.style.transform = open ? '' : 'rotate(180deg)';
+}
+
+// ── UI HELPERS ──
+function toggleMobileMenu() {
+  state.mobileMenuOpen = !state.mobileMenuOpen;
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('hamburger-icon');
+  menu.classList.toggle('open', state.mobileMenuOpen);
+  icon.setAttribute('data-lucide', state.mobileMenuOpen ? 'x' : 'menu');
+  lucide.createIcons();
+}
+
+function toggleSearch() {
+  state.searchOpen = !state.searchOpen;
+  const bar = document.getElementById('search-bar');
+  bar.classList.toggle('hidden', !state.searchOpen);
+  if (state.searchOpen) document.getElementById('header-search-input').focus();
+}
+
+function handleHeaderSearch(val) {
+  state.searchQuery = val;
+  if (state.view !== 'shop') switchView('shop');
+  else renderShop();
+}
+
+function filterAndGoShop(cat) {
+  state.selectedCategory = cat;
+  switchView('shop');
+}
+
+function scrollToStory() {
+  if (state.view !== 'home') switchView('home');
+  setTimeout(() => document.getElementById('story-section')?.scrollIntoView({behavior:'smooth'}), 100);
+}
+
+function scrollToContact() {
+  if (state.view !== 'home') switchView('home');
+  setTimeout(() => document.getElementById('contact-section')?.scrollIntoView({behavior:'smooth'}), 100);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-message').innerText = msg;
+  t.classList.remove('translate-y-20','opacity-0');
+  setTimeout(() => t.classList.add('translate-y-20','opacity-0'), 3500);
+}
+
+// ── VIEW SWITCHER ──
+function switchView(viewName, productId = null) {
+  state.view = viewName;
+  if (productId) state.selectedProductId = productId;
+  document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+  const map = {product:'product-detail'};
+  document.getElementById(`view-${map[viewName]||viewName}`).classList.remove('hidden');
+  window.scrollTo(0,0);
+  if (viewName==='shop') renderShop();
+  if (viewName==='product') renderProductDetail();
+}
+
+// ── RENDER ALL ──
+function renderAll() {
+  renderCategoriesGrid();
+  renderFeatured();
+  renderBestsellers();
+  updateCartBadge();
+}
+
+// ── CATEGORIES GRID ──
+function renderCategoriesGrid() {
+  const grid = document.getElementById('home-categories-grid');
+  if (!grid) return;
+  grid.innerHTML = CATEGORIES.slice(1).map(cat => `
+    <div onclick="filterAndGoShop('${cat.id}')" class="cat-card group cursor-pointer rounded-xl border border-[#D8CBB5]/15 hover:border-[#C6A66B]/50 bg-[#161616] hover:bg-[#1C1C1C] p-5 text-center space-y-3 transition-all">
+      <div class="w-10 h-10 rounded-full bg-[#C6A66B]/10 flex items-center justify-center mx-auto group-hover:bg-[#C6A66B]/20 transition-colors">
+        <i data-lucide="${CAT_ICONS[cat.id]||'sparkles'}" class="w-5 h-5 text-[#C6A66B]"></i>
+      </div>
+      <p class="font-serif text-xs font-semibold text-[#F7F5F0] group-hover:text-[#C6A66B] transition-colors leading-tight">${cat[state.lang]}</p>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+// ── PRODUCT CARD HTML ──
+function createProductCardHTML(p, ivoryBg = false) {
+  const t = I18N[state.lang];
+  const name = state.lang === 'ar' ? p.name_ar : p.name_en;
+  const desc = state.lang === 'ar' ? (p.desc_ar||'') : (p.desc_en||'');
+  const available = p.inStock && p.stock > 0;
+  const bg = ivoryBg ? 'bg-white border-[#D8CBB5]/40 hover:border-[#C6A66B]/60' : 'bg-[#161616] border-[#D8CBB5]/10 hover:border-[#C6A66B]/40';
+  const nameCls = ivoryBg ? 'text-[#1C1C1C] hover:text-[#C6A66B]' : 'text-[#F7F5F0] hover:text-[#C6A66B]';
+  const descCls = ivoryBg ? 'text-[#89847C]' : 'text-[#89847C]';
+  const priceCls = 'text-[#C6A66B]';
+
+  return `
+    <div class="product-card rounded-2xl border ${bg} overflow-hidden flex flex-col">
+      <div class="card-img relative aspect-[4/5] overflow-hidden bg-[#111111]">
+        <img src="${p.image||'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80'}"
+          alt="${name}" class="w-full h-full object-cover" loading="lazy">
+        <div class="absolute top-3 left-3 rtl:right-3 rtl:left-auto flex flex-col gap-1.5 z-10">
+          ${p.oldPrice ? `<span class="bg-[#C6A66B] text-[#111111] text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">SALE</span>` : ''}
+          ${p.isBestSeller ? `<span class="bg-[#111111]/80 text-[#C6A66B] text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-[#C6A66B]/40">★ BEST</span>` : ''}
+        </div>
+        <button onclick="openQuickView('${p.id}')"
+          class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-[#111111]/90 text-[#C6A66B] border border-[#C6A66B]/30 text-[10px] font-semibold px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hover:bg-[#C6A66B] hover:text-[#111111] backdrop-blur-sm">
+          Quick View
+        </button>
+      </div>
+      <div class="p-5 flex flex-col flex-1 gap-3">
+        <div class="flex-1">
+          <span class="text-[#C6A66B] text-[9px] uppercase tracking-[.15em] font-bold block">${p.brand}</span>
+          <h3 onclick="switchView('product','${p.id}')" class="font-serif font-bold text-sm mt-1 cursor-pointer transition-colors line-clamp-1 ${nameCls}">${name}</h3>
+          <p class="text-xs mt-1 line-clamp-2 font-light ${descCls}">${desc}</p>
+        </div>
+        <div class="pt-3 border-t border-[#D8CBB5]/10 space-y-3">
+          <div class="flex items-baseline gap-2">
+            <span class="font-serif font-bold text-base ${priceCls}">${p.price.toLocaleString()} ${t.egp}</span>
+            ${p.oldPrice ? `<span class="text-xs text-[#89847C] line-through">${p.oldPrice.toLocaleString()} ${t.egp}</span>` : ''}
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="addToCart('${p.id}')" ${!available?'disabled':''}
+              class="py-2.5 rounded-xl font-semibold text-[10px] flex items-center justify-center gap-1 transition-all ${available ? 'bg-[#C6A66B]/10 hover:bg-[#C6A66B] text-[#C6A66B] hover:text-[#111111] border border-[#C6A66B]/30' : 'bg-[#1A1A1A] text-[#89847C]/50 cursor-not-allowed border border-[#D8CBB5]/10'}">
+              <i data-lucide="shopping-bag" class="w-3 h-3"></i>
+              <span>${available ? t.addToCart : t.outOfStock}</span>
+            </button>
+            <button onclick="quickOrderWA('${p.id}')"
+              class="py-2.5 rounded-xl bg-[#25D366]/10 hover:bg-[#25D366] text-[#25D366] hover:text-white border border-[#25D366]/30 font-semibold text-[10px] flex items-center justify-center gap-1 transition-all">
+              <i data-lucide="message-circle" class="w-3 h-3"></i>
+              <span>${t.quickWA}</span>
             </button>
           </div>
-          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
-            <div>
-              <span class="text-[9px] uppercase font-bold tracking-widest text-[#D4AF37] block">${p.brand}</span>
-              <h3 onclick="switchView('product', '${p.id}')" class="font-serif font-bold text-sm text-[#FAF8F5] line-clamp-1 hover:text-[#D4AF37] cursor-pointer mt-1 transition-colors">${name}</h3>
-              <p class="text-xs text-gray-400 line-clamp-2 mt-1 font-light">${desc || ''}</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderFeatured() {
+  const grid = document.getElementById('featured-products-grid');
+  if (!grid) return;
+  const featured = state.products.filter(p => p.isFeatured && p.inStock && p.stock > 0).slice(0, 4);
+  grid.innerHTML = featured.map(p => createProductCardHTML(p, true)).join('');
+  lucide.createIcons();
+}
+
+function renderBestsellers() {
+  const grid = document.getElementById('bestsellers-products-grid');
+  if (!grid) return;
+  const best = state.products.filter(p => p.isBestSeller && p.inStock && p.stock > 0).slice(0, 4);
+  grid.innerHTML = best.map(p => createProductCardHTML(p, false)).join('');
+  lucide.createIcons();
+}
+
+// ── SHOP ──
+function renderShop() {
+  const catList = document.getElementById('shop-category-list');
+  if (catList) {
+    catList.innerHTML = CATEGORIES.map(cat => `
+      <button onclick="state.selectedCategory='${cat.id}'; renderShop();"
+        class="w-full text-start px-3 py-2.5 rounded-lg text-xs font-medium transition-all flex items-center justify-between gap-2
+        ${state.selectedCategory===cat.id ? 'bg-[#C6A66B] text-[#111111] font-bold' : 'text-[#89847C] hover:bg-[#C6A66B]/10 hover:text-[#C6A66B]'}">
+        <div class="flex items-center gap-2">
+          <i data-lucide="${CAT_ICONS[cat.id]||'sparkles'}" class="w-3.5 h-3.5"></i>
+          <span>${cat[state.lang]}</span>
+        </div>
+        ${state.selectedCategory===cat.id ? '<i data-lucide="check" class="w-3 h-3"></i>' : ''}
+      </button>
+    `).join('');
+    lucide.createIcons();
+  }
+
+  const available = state.products.filter(p => p.inStock && p.stock > 0);
+  const filtered = available.filter(p => {
+    const cats = p.categoryIds || (p.category ? [p.category] : []);
+    if (state.selectedCategory !== 'all' && !cats.includes(state.selectedCategory)) return false;
+    if (state.searchQuery.trim()) {
+      const q = state.searchQuery.toLowerCase();
+      if (!(p.name_en||'').toLowerCase().includes(q) && !(p.name_ar||'').includes(q) && !(p.brand||'').toLowerCase().includes(q)) return false;
+    }
+    if (p.price > state.maxPrice) return false;
+    return true;
+  }).sort((a,b) => {
+    if (state.sortBy==='priceLow')  return a.price - b.price;
+    if (state.sortBy==='priceHigh') return b.price - a.price;
+    if (state.sortBy==='popular')   return (b.isBestSeller?1:0)-(a.isBestSeller?1:0);
+    return 0;
+  });
+
+  const rc = document.getElementById('shop-result-count');
+  if (rc) rc.innerText = `${filtered.length} ${state.lang==='ar'?'عطر متوفر':'fragrances available'}`;
+
+  const grid = document.getElementById('shop-products-grid');
+  const empty = document.getElementById('shop-empty-state');
+  if (filtered.length === 0) {
+    if (grid) grid.innerHTML = '';
+    if (empty) empty.classList.remove('hidden');
+  } else {
+    if (empty) empty.classList.add('hidden');
+    if (grid) {
+      grid.innerHTML = filtered.map(p => createProductCardHTML(p, false)).join('');
+      lucide.createIcons();
+    }
+  }
+}
+
+function handleSearch(val)       { state.searchQuery = val; renderShop(); }
+function handlePriceRange(val)   { state.maxPrice = Number(val); document.getElementById('price-range-val').innerText = `${val} ${I18N[state.lang].egp}`; renderShop(); }
+function handleSort(val)         { state.sortBy = val; renderShop(); }
+function resetFilters() {
+  state.selectedCategory='all'; state.searchQuery=''; state.maxPrice=15000; state.sortBy='newest';
+  const si = document.getElementById('shop-search-input'); if(si) si.value='';
+  const pi = document.getElementById('price-range-input'); if(pi) pi.value=15000;
+  document.getElementById('price-range-val').innerText = `15000 ${I18N[state.lang].egp}`;
+  renderShop();
+}
+function selectCategoryFilter(catId) { state.selectedCategory = catId; switchView('shop'); }
+
+// ── PRODUCT DETAIL ──
+function renderProductDetail() {
+  const p = state.products.find(item => item.id == state.selectedProductId) || state.products[0];
+  if (!p) return;
+  const t = I18N[state.lang];
+  document.getElementById('back-to-shop-btn').innerText = `← ${t.navShop}`;
+  document.getElementById('pd-image').src = p.image || '';
+  document.getElementById('pd-brand').innerText = p.brand;
+  document.getElementById('pd-name').innerText = state.lang==='ar' ? p.name_ar : p.name_en;
+  document.getElementById('pd-price').innerText = `${(p.price||0).toLocaleString()} ${t.egp}`;
+  const op = document.getElementById('pd-old-price');
+  if (p.oldPrice) { op.innerText = `${p.oldPrice.toLocaleString()} ${t.egp}`; op.classList.remove('hidden'); } else op.classList.add('hidden');
+  const sb = document.getElementById('pd-stock-badge');
+  if (p.inStock && p.stock > 0) {
+    sb.innerText = `${t.inStock} (${p.stock})`; sb.className = 'text-[10px] px-3 py-1 rounded-full font-bold bg-green-900/40 text-green-400 border border-green-500/30';
+  } else {
+    sb.innerText = t.outOfStock; sb.className = 'text-[10px] px-3 py-1 rounded-full font-bold bg-red-900/40 text-red-400 border border-red-500/30';
+  }
+  document.getElementById('pd-desc').innerText = state.lang==='ar' ? (p.desc_ar||'') : (p.desc_en||'');
+  document.getElementById('pd-notes-title').innerText = state.lang==='ar' ? 'الهرم العطري' : 'Fragrance Notes';
+  document.getElementById('pd-top-label').innerText = state.lang==='ar' ? 'افتتاحية' : 'Top';
+  document.getElementById('pd-top-val').innerText = p.notes?.top || 'Fresh Citrus';
+  document.getElementById('pd-heart-label').innerText = state.lang==='ar' ? 'القلب' : 'Heart';
+  document.getElementById('pd-heart-val').innerText = p.notes?.heart || 'Spicy Floral';
+  document.getElementById('pd-base-label').innerText = state.lang==='ar' ? 'القاعدة' : 'Base';
+  document.getElementById('pd-base-val').innerText = p.notes?.base || 'Warm Amber';
+  document.getElementById('pd-size-label').innerText = state.lang==='ar' ? 'الحجم:' : 'Size:';
+  const sizes = p.sizes || ['100ml']; state.detailSize = sizes[0];
+  document.getElementById('pd-size-options').innerHTML = sizes.map(s => `
+    <button onclick="selectDetailSize('${s}',this)" class="pd-size-btn px-4 py-2 rounded-lg text-xs font-bold border transition-all ${s===state.detailSize ? 'bg-[#C6A66B] text-[#111111] border-[#C6A66B]' : 'bg-[#161616] text-[#89847C] border-[#D8CBB5]/15 hover:border-[#C6A66B]/50'}">${s}</button>
+  `).join('');
+  document.getElementById('pd-qty-val').innerText = state.detailQty;
+  document.getElementById('pd-add-cart-text').innerText = t.addToCart;
+  document.getElementById('pd-quick-wa-text').innerText = t.quickWA;
+  lucide.createIcons();
+}
+
+function selectDetailSize(size, btn) {
+  state.detailSize = size;
+  document.querySelectorAll('.pd-size-btn').forEach(b => b.className = 'pd-size-btn px-4 py-2 rounded-lg text-xs font-bold border bg-[#161616] text-[#89847C] border-[#D8CBB5]/15 hover:border-[#C6A66B]/50 transition-all');
+  btn.className = 'pd-size-btn px-4 py-2 rounded-lg text-xs font-bold border bg-[#C6A66B] text-[#111111] border-[#C6A66B] transition-all';
+}
+
+function adjustDetailQty(delta) { state.detailQty = Math.max(1, state.detailQty+delta); document.getElementById('pd-qty-val').innerText = state.detailQty; }
+function addDetailToCart() { const p = state.products.find(i => i.id==state.selectedProductId); if(p) addToCart(p.id,state.detailSize,state.detailQty); }
+function quickOrderCurrentDetailWA() { const p = state.products.find(i => i.id==state.selectedProductId); if(p) quickOrderWA(p.id,state.detailSize); }
+
+// ── CART ──
+function addToCart(productId, size='100ml', qty=1) {
+  const product = state.products.find(p => p.id==productId);
+  if (!product||!product.inStock||product.stock<=0) return;
+  const cid = `${product.id}-${size}`;
+  const ex = state.cart.find(i => i.cartItemId===cid);
+  if (ex) ex.quantity += qty;
+  else state.cart.push({cartItemId:cid, id:product.id, product, size, quantity:qty, price:product.price});
+  saveCart();
+  showToast(state.lang==='ar' ? 'تمت إضافة العطر للحقيبة.' : 'Added to shopping bag.');
+}
+
+function updateCartQty(cartItemId, delta) {
+  const item = state.cart.find(i => i.cartItemId===cartItemId);
+  if (!item) return;
+  item.quantity += delta;
+  if (item.quantity <= 0) state.cart = state.cart.filter(i => i.cartItemId!==cartItemId);
+  saveCart(); renderCartDrawerContent();
+}
+
+function saveCart() { localStorage.setItem('amore_cart', JSON.stringify(state.cart)); updateCartBadge(); }
+
+function updateCartBadge() {
+  const badge = document.getElementById('cart-badge');
+  const count = state.cart.reduce((a,b) => a+b.quantity, 0);
+  if (count > 0) { badge.innerText = count; badge.classList.remove('hidden'); } else badge.classList.add('hidden');
+}
+
+function toggleCartDrawer(open) {
+  const drawer = document.getElementById('cart-drawer');
+  if (open) { renderCartDrawerContent(); drawer.classList.remove('hidden'); } else drawer.classList.add('hidden');
+}
+
+function renderCartDrawerContent() {
+  const container = document.getElementById('cart-items-container');
+  const footer = document.getElementById('cart-drawer-footer');
+  const t = I18N[state.lang];
+  if (state.cart.length === 0) {
+    container.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-center py-20 gap-4"><i data-lucide="shopping-bag" class="w-10 h-10 text-[#C6A66B]/30"></i><p class="text-[#89847C] text-sm">${state.lang==='ar'?'الحقيبة فارغة':'Shopping bag is empty'}</p></div>`;
+    footer.classList.add('hidden');
+    lucide.createIcons();
+    return;
+  }
+  footer.classList.remove('hidden');
+  let subtotal = 0;
+  container.innerHTML = state.cart.map(item => {
+    subtotal += item.price * item.quantity;
+    const name = state.lang==='ar' ? item.product.name_ar : item.product.name_en;
+    return `
+      <div class="flex gap-3 p-3 rounded-xl bg-[#111111] border border-[#D8CBB5]/10 items-start">
+        <img src="${item.product.image||''}" alt="" class="w-14 h-14 object-cover rounded-lg flex-shrink-0">
+        <div class="flex-1 min-w-0">
+          <p class="font-serif font-bold text-xs text-[#F7F5F0] line-clamp-1">${name}</p>
+          <p class="text-[10px] text-[#89847C]">${item.size}</p>
+          <p class="text-xs font-bold text-[#C6A66B] mt-0.5">${item.price.toLocaleString()} ${t.egp}</p>
+          <div class="flex items-center gap-3 mt-2">
+            <div class="flex items-center bg-[#161616] border border-[#D8CBB5]/10 rounded-lg">
+              <button onclick="updateCartQty('${item.cartItemId}',-1)" class="px-2 py-1 text-[#89847C] hover:text-[#C6A66B] text-xs transition-colors">−</button>
+              <span class="text-xs font-bold text-[#F7F5F0] px-2">${item.quantity}</span>
+              <button onclick="updateCartQty('${item.cartItemId}',1)" class="px-2 py-1 text-[#89847C] hover:text-[#C6A66B] text-xs transition-colors">+</button>
             </div>
-            <div class="space-y-3 pt-2 border-t border-[#D4AF37]/10">
-              <div class="flex items-baseline gap-2">
-                <span class="font-serif font-bold text-base text-[#D4AF37]">${p.price} ${t.egp}</span>
-                ${p.oldPrice ? `<span class="text-xs text-gray-400 line-through">${p.oldPrice} ${t.egp}</span>` : ''}
-              </div>
-              <div class="grid grid-cols-2 gap-2">
-                <button onclick="addToCart('${p.id}')" ${!available ? 'disabled' : ''} class="py-2.5 px-3 rounded-xl font-bold text-xs flex items-center justify-center gap-1 transition-all ${available ? 'bg-[#00464D] hover:bg-[#005F68] text-white border border-[#D4AF37]/30' : 'bg-gray-700 text-gray-400 cursor-not-allowed'}">
-                  <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
-                  <span>${available ? t.addToCart : t.outOfStock}</span>
-                </button>
-                <button onclick="quickOrderWA('${p.id}')" class="py-2.5 px-3 rounded-xl bg-[#25D366]/20 hover:bg-[#25D366] text-[#25D366] hover:text-white border border-[#25D366]/40 font-bold text-xs flex items-center justify-center gap-1 transition-colors">
-                  <i data-lucide="phone" class="w-3.5 h-3.5"></i>
-                  <span>${t.quickWA}</span>
-                </button>
-              </div>
-            </div>
+            <button onclick="updateCartQty('${item.cartItemId}',-${item.quantity})" class="text-red-400/60 hover:text-red-400 text-[10px] transition-colors">Remove</button>
           </div>
         </div>
-      `;
-    }
+      </div>
+    `;
+  }).join('');
+  document.getElementById('cart-subtotal-val').innerText = `${subtotal.toLocaleString()} ${t.egp}`;
+}
 
-    // ── SHOP CATALOG ──────────────────────────────────────────────────
-    function renderShop() {
-      const catList = document.getElementById('shop-category-list');
-      catList.innerHTML = CATEGORIES.map(cat => `
-        <button onclick="state.selectedCategory='${cat.id}'; renderShop();" class="w-full text-start px-3 py-2 rounded-xl text-xs font-medium transition-colors flex items-center justify-between ${state.selectedCategory === cat.id ? 'bg-[#D4AF37] text-[#002B30] font-bold' : 'text-gray-300 hover:bg-[#00464D]/50'}">
-          <span>${cat[state.lang]}</span>
-          ${state.selectedCategory === cat.id ? '<i data-lucide="check-circle" class="w-3.5 h-3.5"></i>' : ''}
-        </button>
-      `).join('');
+// ── CHECKOUT ──
+function openCheckoutModal() { toggleCartDrawer(false); document.getElementById('checkout-modal').classList.remove('hidden'); }
+function closeCheckoutModal() { document.getElementById('checkout-modal').classList.add('hidden'); }
 
-      // Show only available products publicly
-      const availableProducts = state.products.filter(p => p.inStock && p.stock > 0);
+function handleCheckoutSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('checkout-name').value.trim();
+  const phone = document.getElementById('checkout-phone').value.trim();
+  const address = document.getElementById('checkout-address').value.trim();
+  const notes = document.getElementById('checkout-notes').value.trim();
+  if (!name||!phone||!address) return;
+  const subtotal = state.cart.reduce((a,b) => a+(b.price*b.quantity), 0);
+  let text = state.lang==='ar'
+    ? `مرحباً AMORE 👑\nطلب جديد:\n\n👤 ${name}\n📞 ${phone}\n📍 ${address}\n\n🛒 العطور:\n${state.cart.map(i=>`• ${i.product.name_ar} (${i.size}) × ${i.quantity} = ${i.price*i.quantity} جنيه`).join('\n')}\n\n💰 الإجمالي: ${subtotal} جنيه${notes?`\n📝 ${notes}`:''}`
+    : `Hello AMORE 👑\nNew order:\n\n👤 ${name}\n📞 ${phone}\n📍 ${address}\n\n🛒 Items:\n${state.cart.map(i=>`• ${i.product.name_en} (${i.size}) × ${i.quantity} = ${i.price*i.quantity} EGP`).join('\n')}\n\n💰 Total: ${subtotal} EGP${notes?`\n📝 ${notes}`:''}`;
+  state.cart = []; saveCart(); closeCheckoutModal();
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+}
 
-      const filtered = availableProducts.filter(p => {
-        const cats = p.categoryIds || (p.category ? [p.category] : []);
-        if (state.selectedCategory !== 'all' && !cats.includes(state.selectedCategory)) return false;
-        if (state.searchQuery.trim()) {
-          const q = state.searchQuery.toLowerCase();
-          const matchName = (p.name_en || '').toLowerCase().includes(q) || (p.name_ar || '').includes(q);
-          const matchBrand = (p.brand || '').toLowerCase().includes(q);
-          if (!matchName && !matchBrand) return false;
-        }
-        if (p.price > state.maxPrice) return false;
-        return true;
-      }).sort((a, b) => {
-        if (state.sortBy === 'priceLow') return a.price - b.price;
-        if (state.sortBy === 'priceHigh') return b.price - a.price;
-        if (state.sortBy === 'popular') return (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0);
-        return 0;
-      });
+function quickOrderWA(productId, size='100ml') {
+  const p = state.products.find(i => i.id==productId);
+  if (!p) return;
+  const text = state.lang==='ar'
+    ? `مرحباً AMORE 👑\nأود طلب:\n\n*${p.name_ar}*\nالحجم: ${size}\nالسعر: ${p.price} جنيه\n\nبرجاء التواصل لتأكيد التوصيل.`
+    : `Hello AMORE 👑\nI'd like to order:\n\n*${p.name_en}*\nSize: ${size}\nPrice: ${p.price} EGP\n\nPlease guide me to complete the order.`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+}
 
-      document.getElementById('shop-result-count').innerText = `${filtered.length} ${state.lang === 'ar' ? 'عطر متوفر' : 'fragrances available'}`;
-      const grid = document.getElementById('shop-products-grid');
-      const emptyState = document.getElementById('shop-empty-state');
+// ── QUICK VIEW ──
+function openQuickView(productId) {
+  const p = state.products.find(i => i.id==productId);
+  if (!p) return;
+  state.quickViewProduct = p;
+  document.getElementById('qv-image').src = p.image||'';
+  document.getElementById('qv-brand').innerText = p.brand;
+  document.getElementById('qv-name').innerText = state.lang==='ar' ? p.name_ar : p.name_en;
+  document.getElementById('qv-price').innerText = `${p.price.toLocaleString()} ${I18N[state.lang].egp}`;
+  document.getElementById('qv-desc').innerText = state.lang==='ar' ? (p.desc_ar||'') : (p.desc_en||'');
+  document.getElementById('qv-add-cart-btn').innerText = I18N[state.lang].addToCart;
+  document.getElementById('quickview-modal').classList.remove('hidden');
+}
+function closeQuickView() { document.getElementById('quickview-modal').classList.add('hidden'); }
+function addQuickViewToCart() { if(state.quickViewProduct){addToCart(state.quickViewProduct.id);closeQuickView();} }
+function quickOrderQVWA() { if(state.quickViewProduct){quickOrderWA(state.quickViewProduct.id);closeQuickView();} }
 
-      if (filtered.length === 0) {
-        grid.innerHTML = '';
-        emptyState.classList.remove('hidden');
-      } else {
-        emptyState.classList.add('hidden');
-        grid.innerHTML = filtered.map(p => createProductCardHTML(p)).join('');
-      }
-      lucide.createIcons();
-    }
-
-    function handleSearch(val) { state.searchQuery = val; renderShop(); }
-    function handlePriceRange(val) {
-      state.maxPrice = Number(val);
-      document.getElementById('price-range-val').innerText = `${val} ${I18N[state.lang].egp}`;
-      renderShop();
-    }
-    function handleSort(val) { state.sortBy = val; renderShop(); }
-    function resetFilters() {
-      state.selectedCategory = 'all';
-      state.searchQuery = '';
-      state.maxPrice = 15000;
-      state.sortBy = 'newest';
-      const si = document.getElementById('shop-search-input');
-      if (si) si.value = '';
-      const pi = document.getElementById('price-range-input');
-      if (pi) pi.value = 15000;
-      document.getElementById('price-range-val').innerText = `15000 ${I18N[state.lang].egp}`;
-      renderShop();
-    }
-
-    // ── PRODUCT DETAIL ────────────────────────────────────────────────
-    function renderProductDetail() {
-      const p = state.products.find(item => item.id == state.selectedProductId) || state.products[0];
-      if (!p) return;
-      const t = I18N[state.lang];
-
-      document.getElementById('back-to-shop-btn').innerText = `← ${t.navShop}`;
-      document.getElementById('pd-image').src = p.image || '';
-      document.getElementById('pd-brand').innerText = p.brand;
-      document.getElementById('pd-name').innerText = state.lang === 'ar' ? p.name_ar : p.name_en;
-      document.getElementById('pd-price').innerText = `${p.price} ${t.egp}`;
-
-      const oldP = document.getElementById('pd-old-price');
-      if (p.oldPrice) { oldP.innerText = `${p.oldPrice} ${t.egp}`; oldP.classList.remove('hidden'); }
-      else oldP.classList.add('hidden');
-
-      const stockBadge = document.getElementById('pd-stock-badge');
-      if (p.inStock && p.stock > 0) {
-        stockBadge.innerText = `${t.inStock} (${p.stock})`;
-        stockBadge.className = 'text-xs px-3 py-1 rounded-full font-bold bg-green-900/60 text-green-300';
-      } else {
-        stockBadge.innerText = t.outOfStock;
-        stockBadge.className = 'text-xs px-3 py-1 rounded-full font-bold bg-red-900/60 text-red-300';
-      }
-
-      document.getElementById('pd-desc').innerText = state.lang === 'ar' ? (p.desc_ar || '') : (p.desc_en || '');
-      document.getElementById('pd-notes-title').innerText = state.lang === 'ar' ? 'الهرم العطري والمكونات' : 'Fragrance Pyramid Notes';
-      document.getElementById('pd-top-label').innerText = state.lang === 'ar' ? 'افتتاحية العطر' : 'Top Notes';
-      document.getElementById('pd-top-val').innerText = p.notes?.top || 'Fresh Citrus';
-      document.getElementById('pd-heart-label').innerText = state.lang === 'ar' ? 'قلب العطر' : 'Heart Notes';
-      document.getElementById('pd-heart-val').innerText = p.notes?.heart || 'Spicy Floral';
-      document.getElementById('pd-base-label').innerText = state.lang === 'ar' ? 'قاعدة العطر' : 'Base Notes';
-      document.getElementById('pd-base-val').innerText = p.notes?.base || 'Warm Amber';
-
-      document.getElementById('pd-size-label').innerText = state.lang === 'ar' ? 'اختر الحجم:' : 'Select Size:';
-      const sizesContainer = document.getElementById('pd-size-options');
-      const sizes = p.sizes || ['100ml'];
-      state.detailSize = sizes[0];
-      sizesContainer.innerHTML = sizes.map(s => `
-        <button onclick="selectDetailSize('${s}', this)" class="pd-size-btn px-4 py-2.5 rounded-xl text-xs font-bold border ${s === state.detailSize ? 'bg-[#D4AF37] text-[#002B30] border-[#D4AF37]' : 'bg-[#002B30] text-gray-300 border-[#D4AF37]/30'}">${s}</button>
-      `).join('');
-
-      document.getElementById('pd-qty-val').innerText = state.detailQty;
-      document.getElementById('pd-add-cart-text').innerText = t.addToCart;
-      document.getElementById('pd-quick-wa-text').innerText = t.quickWA;
-      lucide.createIcons();
-    }
-
-    function selectDetailSize(size, btn) {
-      state.detailSize = size;
-      document.querySelectorAll('.pd-size-btn').forEach(b => {
-        b.className = 'pd-size-btn px-4 py-2.5 rounded-xl text-xs font-bold border bg-[#002B30] text-gray-300 border-[#D4AF37]/30';
-      });
-      btn.className = 'pd-size-btn px-4 py-2.5 rounded-xl text-xs font-bold border bg-[#D4AF37] text-[#002B30] border-[#D4AF37]';
-    }
-
-    function adjustDetailQty(delta) {
-      state.detailQty = Math.max(1, state.detailQty + delta);
-      document.getElementById('pd-qty-val').innerText = state.detailQty;
-    }
-
-    function addDetailToCart() {
-      const p = state.products.find(item => item.id == state.selectedProductId);
-      if (p) addToCart(p.id, state.detailSize, state.detailQty);
-    }
-
-    function quickOrderCurrentDetailWA() {
-      const p = state.products.find(item => item.id == state.selectedProductId);
-      if (p) quickOrderWA(p.id, state.detailSize);
-    }
-
-    // ── CART ──────────────────────────────────────────────────────────
-    function addToCart(productId, size = '100ml', qty = 1) {
-      const product = state.products.find(p => p.id == productId);
-      if (!product || !product.inStock || product.stock <= 0) return;
-
-      const cartItemId = `${product.id}-${size}`;
-      const existing = state.cart.find(item => item.cartItemId === cartItemId);
-
-      if (existing) { existing.quantity += qty; }
-      else {
-        state.cart.push({
-          cartItemId, id: product.id, product, size, quantity: qty, price: product.price
-        });
-      }
-
-      saveCart();
-      showToast(state.lang === 'ar' ? 'تمت إضافة العطر إلى حقيبة التسوق.' : 'Item added to shopping bag.');
-    }
-
-    function updateCartQty(cartItemId, delta) {
-      const item = state.cart.find(i => i.cartItemId === cartItemId);
-      if (!item) return;
-      item.quantity += delta;
-      if (item.quantity <= 0) state.cart = state.cart.filter(i => i.cartItemId !== cartItemId);
-      saveCart();
-      renderCartDrawerContent();
-    }
-
-    function saveCart() { localStorage.setItem('amore_cart', JSON.stringify(state.cart)); updateCartBadge(); }
-
-    function updateCartBadge() {
-      const badge = document.getElementById('cart-badge');
-      const totalCount = state.cart.reduce((a, b) => a + b.quantity, 0);
-      if (totalCount > 0) { badge.innerText = totalCount; badge.classList.remove('hidden'); }
-      else badge.classList.add('hidden');
-    }
-
-    function toggleCartDrawer(open) {
-      const drawer = document.getElementById('cart-drawer');
-      if (open) { renderCartDrawerContent(); drawer.classList.remove('hidden'); }
-      else drawer.classList.add('hidden');
-    }
-
-    function renderCartDrawerContent() {
-      const container = document.getElementById('cart-items-container');
-      const footer = document.getElementById('cart-drawer-footer');
-      const t = I18N[state.lang];
-
-      if (state.cart.length === 0) {
-        container.innerHTML = `<p class="text-center py-20 text-gray-400 text-xs">${state.lang === 'ar' ? 'حقيبة التسوق فارغة حالياً.' : 'Shopping bag is empty.'}</p>`;
-        footer.classList.add('hidden');
-        return;
-      }
-
-      footer.classList.remove('hidden');
-      let subtotal = 0;
-
-      container.innerHTML = state.cart.map(item => {
-        const itemTotal = item.price * item.quantity;
-        subtotal += itemTotal;
-        const name = state.lang === 'ar' ? item.product.name_ar : item.product.name_en;
-        return `
-          <div class="flex gap-4 p-3 rounded-2xl bg-[#00383D]/50 border border-[#D4AF37]/10 items-center">
-            <img src="${item.product.image || ''}" alt="" class="w-14 h-14 object-cover rounded-xl bg-[#002024]">
-            <div class="flex-1">
-              <h4 class="font-serif font-bold text-xs text-white line-clamp-1">${name}</h4>
-              <span class="text-[10px] text-gray-400 block">${item.size}</span>
-              <span class="text-xs font-bold text-[#D4AF37]">${item.price} ${t.egp}</span>
-              <div class="flex items-center gap-3 mt-2">
-                <div class="flex items-center bg-[#002B30] border border-[#D4AF37]/30 rounded-lg px-2 py-0.5">
-                  <button onclick="updateCartQty('${item.cartItemId}', -1)" class="text-xs hover:text-[#D4AF37]">-</button>
-                  <span class="text-xs font-bold px-2">${item.quantity}</span>
-                  <button onclick="updateCartQty('${item.cartItemId}', 1)" class="text-xs hover:text-[#D4AF37]">+</button>
-                </div>
-                <button onclick="updateCartQty('${item.cartItemId}', -${item.quantity})" class="text-red-400 hover:text-red-300 text-xs">Remove</button>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      document.getElementById('cart-subtotal-val').innerText = `${subtotal} ${t.egp}`;
-    }
-
-    // ── CHECKOUT & WHATSAPP ───────────────────────────────────────────
-    function openCheckoutModal() {
-      toggleCartDrawer(false);
-      document.getElementById('checkout-modal').classList.remove('hidden');
-    }
-
-    function closeCheckoutModal() {
-      document.getElementById('checkout-modal').classList.add('hidden');
-    }
-
-    function handleCheckoutSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('checkout-name').value.trim();
-      const phone = document.getElementById('checkout-phone').value.trim();
-      const address = document.getElementById('checkout-address').value.trim();
-      const notes = document.getElementById('checkout-notes').value.trim();
-      if (!name || !phone || !address) return;
-
-      const subtotal = state.cart.reduce((a, b) => a + (b.price * b.quantity), 0);
-      let text = "";
-      if (state.lang === 'ar') {
-        text = `مرحباً AMORE Exclusive Perfume 👑\nأود تأكيد الطلب التالي:\n\n` +
-          `👤 *الاسم:* ${name}\n📞 *الهاتف:* ${phone}\n📍 *العنوان:* ${address}\n\n` +
-          `🛒 *تفاصيل العطور:*\n` +
-          state.cart.map(i => `• ${i.product.name_ar} (${i.size}) - الكمية: ${i.quantity} - السعر: ${i.price * i.quantity} جنيه`).join('\n') +
-          `\n\n💰 *الإجمالي الكلي:* ${subtotal} جنيه` +
-          (notes ? `\n📝 *ملاحظات:* ${notes}` : '') + `\n\nشكراً!`;
-      } else {
-        text = `Hello AMORE Exclusive Perfume 👑\nI'd like to place the following order:\n\n` +
-          `👤 *Name:* ${name}\n📞 *Phone:* ${phone}\n📍 *Address:* ${address}\n\n` +
-          `🛒 *Fragrances:*\n` +
-          state.cart.map(i => `• ${i.product.name_en} (${i.size}) - Qty: ${i.quantity} - Price: ${i.price * i.quantity} EGP`).join('\n') +
-          `\n\n💰 *Total:* ${subtotal} EGP` +
-          (notes ? `\n📝 *Notes:* ${notes}` : '') + `\n\nThank you!`;
-      }
-
-      state.cart = [];
-      saveCart();
-      closeCheckoutModal();
-      showToast(state.lang === 'ar' ? 'جاري الانتقال لواتساب...' : 'Opening WhatsApp...');
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
-    }
-
-    function quickOrderWA(productId, size = '100ml') {
-      const p = state.products.find(item => item.id == productId);
-      if (!p) return;
-      let text = state.lang === 'ar'
-        ? `مرحباً AMORE Exclusive Perfume 👑\nأود الاستفسار عن:\n\nالعطر: *${p.name_ar}*\nالحجم: ${size}\nالسعر: ${p.price} جنيه\n\nأرجو التواصل لتأكيد الشحن.`
-        : `Hello AMORE Exclusive Perfume 👑\nI'm interested in ordering:\n\nProduct: *${p.name_en}*\nSize: ${size}\nPrice: ${p.price} EGP\n\nPlease guide me to finalize.`;
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
-    }
-
-    // ── QUICK VIEW ────────────────────────────────────────────────────
-    function openQuickView(productId) {
-      const p = state.products.find(item => item.id == productId);
-      if (!p) return;
-      state.quickViewProduct = p;
-      document.getElementById('qv-image').src = p.image || '';
-      document.getElementById('qv-brand').innerText = p.brand;
-      document.getElementById('qv-name').innerText = state.lang === 'ar' ? p.name_ar : p.name_en;
-      document.getElementById('qv-price').innerText = `${p.price} ${I18N[state.lang].egp}`;
-      document.getElementById('qv-desc').innerText = state.lang === 'ar' ? (p.desc_ar || '') : (p.desc_en || '');
-      document.getElementById('qv-add-cart-btn').innerText = I18N[state.lang].addToCart;
-      document.getElementById('quickview-modal').classList.remove('hidden');
-    }
-
-    function closeQuickView() { document.getElementById('quickview-modal').classList.add('hidden'); }
-    function addQuickViewToCart() { if (state.quickViewProduct) { addToCart(state.quickViewProduct.id); closeQuickView(); } }
-    function quickOrderQVWA() { if (state.quickViewProduct) { quickOrderWA(state.quickViewProduct.id); closeQuickView(); } }
-  </script>
+</script>
 </body>
 </html>

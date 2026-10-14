@@ -1,48 +1,26 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AMORE — Admin Console | لوحة تحكم المشرف</title>
-  
+  <title>AMORE — Admin Console</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            teal: { DEFAULT: '#00464D', dark: '#002B30', deep: '#002024', surface: '#00383D' },
-            gold: { DEFAULT: '#D4AF37', light: '#E5C158', hover: '#C29F2E' }
-          },
-          fontFamily: {
-            serif: ['Playfair Display', 'Amiri', 'Georgia', 'serif'],
-            sans: ['Plus Jakarta Sans', 'Cairo', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #002024; }
-    ::-webkit-scrollbar-thumb { background: #00464D; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+    *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    .fade-in { animation: fadeIn 0.4s ease forwards; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .spinner { animation: spin 0.8s linear infinite; }
-    .modal-overlay { animation: fadeIn 0.2s ease forwards; }
+    body { background:#111111; color:#F7F5F0; font-family:"Plus Jakarta Sans",sans-serif; }
+    ::-webkit-scrollbar { width:5px; } ::-webkit-scrollbar-track { background:#111; } ::-webkit-scrollbar-thumb { background:#C6A66B; border-radius:4px; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes spin   { to{transform:rotate(360deg)} }
+    .fade-in  { animation: fadeIn .35s ease forwards; }
+    .spinner  { animation: spin .75s linear infinite; }
   </style>
 </head>
-<body class="min-h-screen bg-[#002024] text-[#F3F4F6] font-sans selection:bg-[#D4AF37] selection:text-[#002B30]">
+<body class="min-h-screen">
 
   <!-- Toast Notification -->
   <div id="toast" class="fixed bottom-6 right-6 z-[999] transform translate-y-20 opacity-0 transition-all duration-300 bg-[#00464D] text-[#D4AF37] border border-[#D4AF37]/40 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-none">
@@ -61,19 +39,7 @@
         <!-- Logo -->
         <div class="text-center space-y-3">
           <div class="flex justify-center">
-            <svg width="60" height="60" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="52" y="2" width="16" height="8" rx="2" fill="#D4AF37"/>
-              <rect x="28" y="18" width="64" height="72" rx="6" fill="none" stroke="#D4AF37" stroke-width="4"/>
-              <line x1="28" y1="18" x2="92" y2="90" stroke="#D4AF37" stroke-width="3.5"/>
-              <line x1="92" y1="18" x2="28" y2="90" stroke="#D4AF37" stroke-width="3.5"/>
-              <rect x="48" y="10" width="24" height="10" rx="2" fill="none" stroke="#D4AF37" stroke-width="3"/>
-              <rect x="28" y="18" width="64" height="72" rx="6" fill="none" stroke="#D4AF37" stroke-width="4"/>
-              <path d="M 44 88 Q 60 100 76 88" fill="none" stroke="#D4AF37" stroke-width="3.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div>
-            <h1 class="font-serif text-3xl font-bold text-[#D4AF37] tracking-widest">AMORE</h1>
-            <p class="text-[10px] tracking-[0.3em] uppercase text-gray-400 font-light">EXCLUSIVE PERFUME</p>
+            <img src="assets/logo.svg" alt="AMORE Exclusive Perfume" class="h-28 w-28 object-contain drop-shadow-xl" />
           </div>
           <div class="pt-2">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30">
@@ -175,15 +141,7 @@
         
         <!-- Logo + Title -->
         <div class="flex items-center gap-3">
-          <svg width="32" height="32" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="52" y="2" width="16" height="8" rx="2" fill="#D4AF37"/>
-            <rect x="28" y="18" width="64" height="72" rx="6" fill="none" stroke="#D4AF37" stroke-width="4"/>
-            <line x1="28" y1="18" x2="92" y2="90" stroke="#D4AF37" stroke-width="3.5"/>
-            <line x1="92" y1="18" x2="28" y2="90" stroke="#D4AF37" stroke-width="3.5"/>
-            <rect x="48" y="10" width="24" height="10" rx="2" fill="none" stroke="#D4AF37" stroke-width="3"/>
-            <rect x="28" y="18" width="64" height="72" rx="6" fill="none" stroke="#D4AF37" stroke-width="4"/>
-            <path d="M 44 88 Q 60 100 76 88" fill="none" stroke="#D4AF37" stroke-width="3.5" stroke-linecap="round"/>
-          </svg>
+          <img src="assets/logo.svg" alt="AMORE" class="h-10 w-10 object-contain" />
           <div>
             <span class="font-serif text-lg font-bold text-[#D4AF37] tracking-widest">AMORE</span>
             <span class="text-xs text-gray-500 block -mt-0.5 hidden sm:block">Admin Console</span>
@@ -587,12 +545,13 @@
     // Never commit real credentials to a public repository.
     // ─────────────────────────────────────────────────────────────────
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyBxAkelLg6Nx94t507M2Mf3E0NuCl2rLlc",
+      authDomain: "amore-perfume.firebaseapp.com",
+      projectId: "amore-perfume",
+      storageBucket: "amore-perfume.firebasestorage.app",
+      messagingSenderId: "340827519847",
+      appId: "1:340827519847:web:46badf3cae11236c4acdc2",
+      measurementId: "G-ZTMTQGJ80Z"
     };
 
     let app, auth, db, storage;
