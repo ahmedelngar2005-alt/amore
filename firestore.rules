@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ──────────────────────────────────────────────────────────────
+    // PRODUCTS COLLECTION
+    // - Public visitors: read only (any available products)
+    // - Authenticated admin: full create / update / delete
+    // ──────────────────────────────────────────────────────────────
+    match /products/{productId} {
+      // Anyone can read products (storefront display)
+      allow read: if true;
+
+      // Only signed-in admin can write (create, update, delete)
+      // email_verified ensures the account was properly set up
+      allow create: if request.auth != null
+        && request.auth.token.email_verified == true
+        && validateProductCreate(request.resource.data);
+
+      allow update: if request.auth != null
+        && request.auth.token.email_verified == true
+        && validateProductUpdate(request.resource.data);
+
+      allow delete: if request.auth != null
+        && request.auth.token.email_verified == true;
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // ORDERS COLLECTION
+    // - Admin can read and write orders
+    // ──────────────────────────────────────────────────────────────
+    match /orders/{orderId} {
+      allow read, write: if request.auth != null
+        && request.auth.token.email_verified == true;
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // DENY EVERYTHING ELSE
+    // ──────────────────────────────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+// ── PRODUCT VALIDATION FUNCTIONS ────────────────────────────────────
+
+function validateProductCreate(data) {
+  return data.keys().hasAll(['name_en', 'name_ar', 'brand', 'price', 'stock', 'inStock', 'category'])
+    && data.name_en is string && data.name_en.size() > 0 && data.name_en.size() <= 120
+    && data.name_ar is string && data.name_ar.size() > 0 && data.name_ar.size() <= 120
+    && data.brand is string && data.brand.size() > 0 && data.brand.size() <= 80
+    && data.price is number && data.price > 0 && data.price <= 999999
+    && data.stock is number && data.stock >= 0 && data.stock <= 9999
+    && data.inStock is bool
+    && data.category is string;
+}
+
+function validateProductUpdate(data) {
+  return (!data.keys().hasAny(['price']) || (data.price is number && data.price > 0 && data.price <= 999999))
+    && (!data.keys().hasAny(['stock']) || (data.stock is number && data.stock >= 0 && data.stock <= 9999))
+    && (!data.keys().hasAny(['name_en']) || (data.name_en is string && data.name_en.size() <= 120))
+    && (!data.keys().hasAny(['name_ar']) || (data.name_ar is string && data.name_ar.size() <= 120));
+}
