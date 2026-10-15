@@ -12,17 +12,14 @@ service cloud.firestore {
       allow read: if true;
 
       // Only signed-in admin can write (create, update, delete)
-      // email_verified ensures the account was properly set up
-      allow create: if request.auth != null
-        && request.auth.token.email_verified == true
+      // only the admin emails listed in isAdmin() below may write
+      allow create: if isAdmin()
         && validateProductCreate(request.resource.data);
 
-      allow update: if request.auth != null
-        && request.auth.token.email_verified == true
+      allow update: if isAdmin()
         && validateProductUpdate(request.resource.data);
 
-      allow delete: if request.auth != null
-        && request.auth.token.email_verified == true;
+      allow delete: if isAdmin();
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -30,8 +27,7 @@ service cloud.firestore {
     // - Admin can read and write orders
     // ──────────────────────────────────────────────────────────────
     match /orders/{orderId} {
-      allow read, write: if request.auth != null
-        && request.auth.token.email_verified == true;
+      allow read, write: if isAdmin();
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -61,4 +57,10 @@ function validateProductUpdate(data) {
     && (!data.keys().hasAny(['stock']) || (data.stock is number && data.stock >= 0 && data.stock <= 9999))
     && (!data.keys().hasAny(['name_en']) || (data.name_en is string && data.name_en.size() <= 120))
     && (!data.keys().hasAny(['name_ar']) || (data.name_ar is string && data.name_ar.size() <= 120));
+}
+
+// Only these signed-in emails can manage the store. Put YOUR admin email here.
+function isAdmin() {
+  return request.auth != null
+    && request.auth.token.email in ['admin@amore.com'];
 }

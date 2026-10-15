@@ -28,6 +28,7 @@
       }
     }
   </script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23111%22/%3E%3Csvg x=%2222%22 y=%2214%22 width=%2256%22 height=%2272%22 viewBox=%22112 44 176 200%22%3E%3Cdefs%3E%3ClinearGradient id=%22amoreGold%22 gradientUnits=%22userSpaceOnUse%22 x1=%22120%22 y1=%2252%22 x2=%22280%22 y2=%22240%22%3E%3Cstop offset=%220%22 stop-color=%22%23E2CFA0%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%23C6A66B%22/%3E%3Cstop offset=%221%22 stop-color=%22%23A8864A%22/%3E%3C/linearGradient%3E%3C/defs%3E%3CclipPath id=%22amoreClip%22%3E%3Crect x=%22120%22 y=%2284%22 width=%22160%22 height=%22130%22 rx=%2214%22/%3E%3C/clipPath%3E%0A%3Crect x=%22188%22 y=%2250%22 width=%2224%22 height=%2211%22 rx=%223%22 fill=%22url%28%23amoreGold%29%22/%3E%0A%3Crect x=%22176%22 y=%2261%22 width=%2248%22 height=%2223%22 rx=%223%22 fill=%22none%22 stroke=%22url%28%23amoreGold%29%22 stroke-width=%225%22/%3E%0A%3Crect x=%22120%22 y=%2284%22 width=%22160%22 height=%22130%22 rx=%2214%22 fill=%22none%22 stroke=%22url%28%23amoreGold%29%22 stroke-width=%226%22/%3E%0A%3Cg clip-path=%22url%28%23amoreClip%29%22%3E%3Cline x1=%22120%22 y1=%2284%22 x2=%22280%22 y2=%22214%22 stroke=%22url%28%23amoreGold%29%22 stroke-width=%223.5%22/%3E%3Cline x1=%22280%22 y1=%2284%22 x2=%22120%22 y2=%22214%22 stroke=%22url%28%23amoreGold%29%22 stroke-width=%223.5%22/%3E%3C/g%3E%0A%3Cpath d=%22M148 212 Q200 240 252 212%22 fill=%22none%22 stroke=%22url%28%23amoreGold%29%22 stroke-width=%226%22 stroke-linecap=%22round%22/%3E%3C/svg%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -121,6 +122,14 @@
   </style>
 </head>
 <body>
+<!-- AMORE logo sprite (inline, no external file) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="amoreGold" gradientUnits="userSpaceOnUse" x1="120" y1="52" x2="280" y2="240"><stop offset="0" stop-color="#E2CFA0"/><stop offset=".5" stop-color="#C6A66B"/><stop offset="1" stop-color="#A8864A"/></linearGradient><symbol id="amore-mark" viewBox="112 44 176 200"><clipPath id="amoreClip"><rect x="120" y="84" width="160" height="130" rx="14"/></clipPath>
+<rect x="188" y="50" width="24" height="11" rx="3" fill="url(#amoreGold)"/>
+<rect x="176" y="61" width="48" height="23" rx="3" fill="none" stroke="url(#amoreGold)" stroke-width="5"/>
+<rect x="120" y="84" width="160" height="130" rx="14" fill="none" stroke="url(#amoreGold)" stroke-width="6"/>
+<g clip-path="url(#amoreClip)"><line x1="120" y1="84" x2="280" y2="214" stroke="url(#amoreGold)" stroke-width="3.5"/><line x1="280" y1="84" x2="120" y2="214" stroke="url(#amoreGold)" stroke-width="3.5"/></g>
+<path d="M148 212 Q200 240 252 212" fill="none" stroke="url(#amoreGold)" stroke-width="6" stroke-linecap="round"/></symbol></defs></svg>
+
 
 <!-- ═══════════════════════════════════════════════════════ TOAST -->
 <div id="toast" class="fixed bottom-6 right-6 z-[999] transform translate-y-20 opacity-0 transition-all duration-300 bg-[#1C1C1C] text-[#C6A66B] border border-[#C6A66B]/40 px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 pointer-events-none">
@@ -139,7 +148,7 @@
 
     <!-- Logo (left on desktop) -->
     <div onclick="switchView('home')" class="flex-shrink-0 cursor-pointer group">
-      <img src="assets/logo.svg" alt="AMORE" class="h-12 w-12 object-contain transition-opacity duration-300 group-hover:opacity-80" />
+      <span dir="ltr" class="inline-flex items-center gap-3 transition-opacity duration-300 group-hover:opacity-80" aria-label="AMORE Exclusive Perfume"><svg class="h-11 w-10 flex-shrink-0" role="img" aria-hidden="true"><use href="#amore-mark"/></svg><span class="flex flex-col leading-none text-left"><span class="font-serif font-bold text-[22px] tracking-[0.28em]" style="background:linear-gradient(135deg,#E2CFA0,#C6A66B 55%,#A8864A);-webkit-background-clip:text;background-clip:text;color:transparent">AMORE</span><span class="text-[8px] tracking-[0.34em] mt-1.5 uppercase text-[#89847C]">Exclusive Perfume</span></span></span>
     </div>
 
     <!-- Desktop nav links (center) -->
@@ -167,6 +176,11 @@
       <!-- WhatsApp -->
       <a href="https://wa.me/201149770420" target="_blank" class="p-2 text-[#25D366] hover:opacity-80 transition-opacity" aria-label="WhatsApp">
         <i data-lucide="message-circle" class="w-5 h-5"></i>
+      </a>
+      <!-- Admin entry -->
+      <a href="admin.html" id="nav-admin-icon" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#C6A66B]/30 text-[#C6A66B] hover:bg-[#C6A66B]/10 text-[11px] font-bold transition-all" title="Admin" aria-label="Admin">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+        <span id="nav-admin-text">Admin</span>
       </a>
       <!-- Cart -->
       <button onclick="toggleCartDrawer(true)" class="relative p-2 text-[#F7F5F0] hover:text-[#C6A66B] transition-colors" aria-label="Cart">
@@ -201,6 +215,9 @@
       <button onclick="filterAndGoShop('unisex');toggleMobileMenu()" id="mob-unisex" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
       <button onclick="filterAndGoShop('offers');toggleMobileMenu()" id="mob-offers" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
       <button onclick="scrollToContact();toggleMobileMenu()" id="mob-contact" class="block w-full text-start py-2.5 px-3 rounded-lg hover:bg-[#C6A66B]/10 hover:text-[#C6A66B] transition-colors"></button>
+      <a href="admin.html" class="flex items-center gap-2 w-full py-2.5 px-3 rounded-lg text-[#C6A66B] hover:bg-[#C6A66B]/10 transition-colors">
+        <i data-lucide="shield-check" class="w-4 h-4"></i><span id="mob-admin">Admin</span>
+      </a>
       <div class="pt-2 flex items-center gap-3 px-3">
         <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#D8CBB5]/30 text-[#89847C] text-xs font-bold">
           <i data-lucide="globe" class="w-3.5 h-3.5"></i><span id="mob-lang">EN</span>
@@ -535,7 +552,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[#D8CBB5]/10">
       <!-- Brand -->
       <div class="space-y-5">
-        <img src="assets/logo.svg" alt="AMORE" class="h-14 w-14 object-contain" />
+        <span dir="ltr" class="inline-flex items-center gap-3 " aria-label="AMORE Exclusive Perfume"><svg class="h-14 w-12 flex-shrink-0" role="img" aria-hidden="true"><use href="#amore-mark"/></svg><span class="flex flex-col leading-none text-left"><span class="font-serif font-bold text-[26px] tracking-[0.28em]" style="background:linear-gradient(135deg,#E2CFA0,#C6A66B 55%,#A8864A);-webkit-background-clip:text;background-clip:text;color:transparent">AMORE</span><span class="text-[9px] tracking-[0.34em] mt-2 uppercase text-[#89847C]">Exclusive Perfume</span></span></span>
         <p id="footer-desc" class="text-[#89847C] text-xs leading-relaxed"></p>
         <div class="flex gap-3">
           <a href="https://wa.me/201149770420" target="_blank" class="w-8 h-8 rounded-full border border-[#D8CBB5]/20 flex items-center justify-center text-[#89847C] hover:border-[#C6A66B] hover:text-[#C6A66B] transition-all">
@@ -584,7 +601,7 @@
       <p>© 2026 AMORE Exclusive Perfume. <span id="footer-rights"></span></p>
       <div class="flex items-center gap-4">
         <a href="https://wa.me/201149770420" target="_blank" class="hover:text-[#C6A66B] transition-colors">WhatsApp Support</a>
-        <a href="admin.html" class="flex items-center gap-1 text-[#89847C]/40 hover:text-[#C6A66B]/60 transition-colors">
+        <a href="admin.html" class="flex items-center gap-1 text-[#89847C] hover:text-[#C6A66B] transition-colors">
           <i data-lucide="lock" class="w-3 h-3"></i>
           <span id="footer-admin-link">Admin</span>
         </a>
@@ -950,7 +967,7 @@ function applyLanguage() {
   s('foot-nav-home', t.navHome); s('foot-nav-shop', t.navShop); s('foot-nav-about', t.footerAbout); s('foot-nav-offers', t.footerOffers);
   s('footer-gold-contact', t.footerContact); s('footer-gold-hours', t.footerHours); s('footer-hours-desc', t.footerHoursDesc);
   s('footer-wa-text', t.footerWaText); s('footer-rights', t.footerRights);
-  s('footer-admin-link', t.footerAdmin); s('floating-wa-text', t.quickWAFloat);
+  s('footer-admin-link', t.footerAdmin); s('nav-admin-text', t.footerAdmin); s('mob-admin', t.footerAdmin); s('floating-wa-text', t.quickWAFloat);
 
   // FAQ
   const faqEl = document.getElementById('faq-container');

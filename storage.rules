@@ -6,12 +6,10 @@ service firebase.storage {
     // Enforces: max 5MB, image files only
     match /products/{fileName} {
       allow read: if true;
-      allow write: if request.auth != null
-        && request.auth.token.email_verified == true
+      allow write: if isAdmin()
         && request.resource.size < 5 * 1024 * 1024
         && request.resource.contentType.matches('image/.*');
-      allow delete: if request.auth != null
-        && request.auth.token.email_verified == true;
+      allow delete: if isAdmin();
     }
 
     // Deny everything else
@@ -19,4 +17,10 @@ service firebase.storage {
       allow read, write: if false;
     }
   }
+}
+
+// Only these signed-in emails can upload/delete product images. Put YOUR admin email here.
+function isAdmin() {
+  return request.auth != null
+    && request.auth.token.email in ['admin@amore.com'];
 }
